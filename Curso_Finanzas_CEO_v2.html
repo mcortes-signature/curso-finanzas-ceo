@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finanzas para la Conversación con el CEO</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e1117;--ink2:#1c2333;--paper:#f6f3ee;--red:#c0392b;--gold:#b8860b;--gold2:#d4a017;--green:#1a5c3a;--green2:#27ae60;--blue:#1a3a5c;--muted:#8a8278;--border:#d4cfc6;--sidebar-w:285px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--paper);color:var(--ink);display:flex;min-height:100vh}
+#sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--ink);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:100;overflow-y:auto;overflow-x:hidden}
+.sidebar-header{padding:1.8rem 1.5rem 1.3rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.sidebar-eyebrow{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);font-weight:600;margin-bottom:.5rem}
+.sidebar-title{font-family:'Libre Baskerville',serif;font-size:.95rem;color:#fff;line-height:1.35}
+.sidebar-progress-wrap{padding:.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.progress-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:#666;margin-bottom:.4rem}
+.progress-bar{height:3px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;background:var(--gold2);border-radius:99px;width:0%;transition:width .6s ease}
+.progress-text{font-size:.68rem;color:#888;margin-top:.35rem}
+.progress-text span{color:var(--gold2);font-weight:600}
+.nav-section{padding:.4rem 0}
+.nav-section-label{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:#444;padding:.4rem 1.5rem .2rem;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:.7rem;padding:.5rem 1.5rem;cursor:pointer;transition:background .15s;position:relative}
+.nav-item:hover{background:rgba(255,255,255,0.04)}
+.nav-item.active{background:rgba(255,255,255,0.07)}
+.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold2)}
+.nav-dot{width:20px;height:20px;border-radius:50%;border:1.5px solid #444;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.52rem;color:#666;transition:all .2s}
+.nav-dot.done{background:var(--green2);border-color:var(--green2);color:white;font-size:.7rem}
+.nav-item-title{font-size:.76rem;color:#bbb;line-height:1.3;font-weight:400}
+.nav-item.active .nav-item-title{color:#fff;font-weight:500}
+.nav-item-meta{font-size:.6rem;color:#555;margin-top:.1rem}
+#main{margin-left:var(--sidebar-w);flex:1;min-height:100vh}
+.view{display:none}
+.view.active{display:block}
+#view-home.active{display:flex;flex-direction:column}
+.home-hero{background:var(--ink2);padding:4.5rem 4rem 3.5rem;position:relative;overflow:hidden}
+.home-hero::before{content:'CEO';position:absolute;right:-1rem;bottom:-2rem;font-family:'Libre Baskerville',serif;font-size:16rem;font-weight:700;color:rgba(255,255,255,0.025);line-height:1;pointer-events:none}
+.hero-eyebrow{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);font-weight:600;margin-bottom:1rem}
+.hero-title{font-family:'Libre Baskerville',serif;font-size:clamp(1.8rem,3.5vw,3rem);color:#fff;line-height:1.15;max-width:680px}
+.hero-subtitle{margin-top:1rem;font-size:.95rem;color:#888;max-width:540px;font-weight:300;line-height:1.65}
+.hero-meta{display:flex;gap:2.5rem;margin-top:2rem;flex-wrap:wrap}
+.hero-stat-num{font-family:'Libre Baskerville',serif;font-size:1.8rem;color:var(--gold2);font-weight:700;line-height:1}
+.hero-stat-label{font-size:.65rem;color:#666;text-transform:uppercase;letter-spacing:.1em;margin-top:.25rem}
+.home-objectives{background:var(--green);padding:2rem 4rem;display:flex;gap:2.5rem;align-items:flex-start}
+.objectives-title{font-family:'Libre Baskerville',serif;font-size:.95rem;color:#fff;white-space:nowrap;margin-top:.2rem}
+.objectives-list{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 2rem}
+.objectives-list li{font-size:.8rem;color:rgba(255,255,255,0.8);display:flex;align-items:flex-start;gap:.5rem}
+.objectives-list li::before{content:'✦';color:var(--gold2);font-size:.5rem;margin-top:4px;flex-shrink:0}
+.home-modules{padding:2.5rem 4rem}
+.home-modules-title{font-family:'Libre Baskerville',serif;font-size:1.3rem;color:var(--ink);margin-bottom:.3rem}
+.home-modules-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.8rem}
+.modules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.9rem}
+.module-card-home{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.3rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.module-card-home::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--color,var(--red))}
+.module-card-home:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.08)}
+.module-card-home.completed{background:#f8fff9;border-color:#b8e0c0}
+.card-num{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);margin-bottom:.45rem;letter-spacing:.04em}
+.card-title{font-family:'Libre Baskerville',serif;font-size:.9rem;color:var(--ink);line-height:1.3;margin-bottom:.35rem}
+.card-sub{font-size:.73rem;color:var(--muted);line-height:1.4}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--border)}
+.card-time{font-size:.62rem;color:#aaa}
+.card-cta{font-size:.68rem;font-weight:600;color:var(--red)}
+.module-view-header{background:var(--ink2);padding:3rem 4rem 2.5rem;position:relative;overflow:hidden}
+.module-view-header::after{content:attr(data-num);position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-family:'Libre Baskerville',serif;font-size:9rem;font-weight:700;color:rgba(255,255,255,0.028);line-height:1;pointer-events:none}
+.mod-eyebrow{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);font-weight:600;margin-bottom:.7rem}
+.mod-title{font-family:'Libre Baskerville',serif;font-size:clamp(1.4rem,2.8vw,2.2rem);color:#fff;line-height:1.2}
+.mod-subtitle{font-size:.88rem;color:#888;margin-top:.5rem;font-weight:300}
+.mod-meta-bar{display:flex;gap:1.2rem;margin-top:1.3rem;flex-wrap:wrap}
+.mod-tag{font-size:.62rem;padding:.22rem .65rem;border-radius:3px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.tag-red{background:rgba(192,57,43,0.2);color:#e07060}
+.tag-gold{background:rgba(184,134,11,0.2);color:var(--gold2)}
+.tag-green{background:rgba(26,92,58,0.3);color:#5cb87a}
+.tag-blue{background:rgba(26,58,92,0.3);color:#7aacdb}
+.mod-objective{background:rgba(26,92,58,0.12);border-left:3px solid var(--green2);padding:1rem 1.5rem;margin:0 4rem;border-radius:0 6px 6px 0}
+.mod-objective p{font-size:.83rem;color:rgba(255,255,255,0.65);line-height:1.65}
+.mod-objective p strong{color:#5cb87a}
+.mod-body{padding:2.5rem 4rem 4rem;max-width:980px}
+.section-block{margin-bottom:3rem}
+.section-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--gold2);font-weight:600;margin-bottom:.5rem}
+.section-title{font-family:'Libre Baskerville',serif;font-size:1.35rem;color:var(--ink);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--border)}
+.body-text{font-size:.9rem;color:#333;line-height:1.8;margin-bottom:1rem}
+.body-text strong{color:var(--ink)}
+.fin-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.83rem}
+.fin-table th{background:var(--ink);color:#fff;padding:.7rem 1rem;text-align:left;font-weight:600;font-size:.75rem;letter-spacing:.04em}
+.fin-table td{padding:.65rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.fin-table tr:nth-child(even) td{background:#faf8f4}
+.fin-table tr:hover td{background:#f0ede6}
+.fin-table .row-total td{background:var(--ink2)!important;color:#fff;font-weight:600}
+.fin-table .row-gold td{background:rgba(184,134,11,0.07)}
+.cell-red{color:var(--red);font-weight:600}
+.cell-green{color:var(--green2);font-weight:600}
+.cell-gold{color:var(--gold);font-weight:600}
+.cell-muted{color:var(--muted);font-size:.78rem}
+.callout{border-radius:6px;padding:1.2rem 1.5rem;margin:1.5rem 0;display:flex;gap:1rem;align-items:flex-start}
+.callout-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+.callout-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:.4rem}
+.callout-text{font-size:.86rem;line-height:1.7}
+.callout.red{background:#fff5f4;border-left:3px solid var(--red)}
+.callout.red .callout-label{color:var(--red)}
+.callout.red .callout-text{color:#555}
+.callout.gold{background:#fffbf0;border-left:3px solid var(--gold2)}
+.callout.gold .callout-label{color:var(--gold)}
+.callout.gold .callout-text{color:#555}
+.callout.green{background:#f2fbf5;border-left:3px solid var(--green2)}
+.callout.green .callout-label{color:var(--green)}
+.callout.green .callout-text{color:#555}
+.callout.dark{background:var(--ink2);border-left:3px solid var(--gold2)}
+.callout.dark .callout-label{color:var(--gold2)}
+.callout.dark .callout-text{color:#aaa}
+.callout.blue{background:#f0f6ff;border-left:3px solid #2980b9}
+.callout.blue .callout-label{color:var(--blue)}
+.callout.blue .callout-text{color:#555}
+.bullet-list{list-style:none;padding:0;margin:1rem 0}
+.bullet-list li{font-size:.88rem;color:#333;padding:.45rem 0;border-bottom:1px solid #f0ede6;display:flex;gap:.75rem;align-items:flex-start;line-height:1.55}
+.bullet-list li::before{content:'→';color:var(--red);font-size:.75rem;flex-shrink:0;margin-top:2px;font-weight:600}
+.bullet-list li strong{color:var(--ink)}
+.ceo-box{background:var(--ink);border-radius:8px;padding:1.5rem 2rem;margin:1.5rem 0}
+.ceo-box-title{font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:var(--gold2);font-weight:600;margin-bottom:1rem}
+.ceo-question{display:flex;gap:1rem;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,0.06);align-items:flex-start}
+.ceo-question:last-child{border-bottom:none}
+.ceo-q-text{font-family:'Libre Baskerville',serif;font-size:.85rem;color:rgba(255,255,255,0.8);font-style:italic;flex:1;line-height:1.55}
+.ceo-a-text{font-size:.78rem;color:#5cb87a;flex:1;line-height:1.6}
+.ceo-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;width:28px;margin-top:3px}
+.ceo-q-label{color:var(--gold2)}
+.ceo-a-label{color:#5cb87a}
+.balance-t{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+.balance-col-header{color:#fff;text-align:center;padding:.6rem;font-weight:600;font-size:.8rem;border-radius:4px 4px 0 0;letter-spacing:.05em}
+.balance-col-header.red{background:var(--red)}
+.balance-col-header.green{background:var(--green)}
+.balance-group{border:1px solid var(--border);border-top:none;padding:.8rem 1rem;background:white}
+.balance-group+.balance-group{border-top:1px solid var(--border)}
+.balance-group-title{font-size:.72rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.balance-group-title.green{color:var(--green2)}
+.balance-group-title.blue{color:var(--blue)}
+.balance-item{font-size:.8rem;color:#555;padding:.2rem 0}
+.balance-total{background:var(--ink2);color:#fff;text-align:center;padding:.55rem;font-size:.78rem;font-weight:600;border-radius:0 0 4px 4px}
+.ratio-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.8rem;margin:1.5rem 0}
+.ratio-card{background:white;border:1px solid var(--border);border-radius:6px;padding:1rem 1.2rem;border-top:3px solid var(--color,var(--red))}
+.ratio-card-name{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-bottom:.4rem}
+.ratio-card-formula{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--ink);font-weight:500;margin-bottom:.5rem;line-height:1.4}
+.ratio-card-bench{font-size:.72rem;color:var(--green2);font-weight:600;margin-bottom:.3rem}
+.ratio-card-desc{font-size:.72rem;color:#888;line-height:1.45}
+.exercise-block{background:var(--ink2);border-radius:8px;padding:2rem;margin:2rem 0}
+.exercise-title{font-family:'Libre Baskerville',serif;font-size:1rem;color:var(--gold2);margin-bottom:.5rem}
+.exercise-desc{font-size:.83rem;color:#888;margin-bottom:1.5rem;line-height:1.65}
+.exercise-steps{list-style:none;counter-reset:steps}
+.exercise-steps li{counter-increment:steps;display:flex;gap:1rem;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:.85rem;color:#bbb;align-items:flex-start;line-height:1.55}
+.exercise-steps li::before{content:counter(steps);background:var(--gold2);color:var(--ink);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0}
+.complete-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--green);color:white;border:none;padding:.8rem 1.8rem;border-radius:4px;font-size:.85rem;font-weight:600;cursor:pointer;margin-top:1rem;transition:all .2s;font-family:'Outfit',sans-serif;letter-spacing:.03em}
+.complete-btn:hover{background:#1e7a4a;transform:translateY(-1px)}
+.complete-btn.done{background:#888;cursor:default;transform:none}
+.mod-nav-footer{display:flex;justify-content:space-between;align-items:center;padding:2rem 4rem;border-top:1px solid var(--border);background:white}
+.mod-nav-btn{display:flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;color:var(--ink);cursor:pointer;padding:.6rem 1.2rem;border:1px solid var(--border);border-radius:4px;background:white;transition:all .15s;font-family:'Outfit',sans-serif}
+.mod-nav-btn:hover{background:var(--paper);border-color:#aaa}
+.mod-nav-btn.primary{background:var(--ink);color:white;border-color:var(--ink)}
+.mod-nav-btn.primary:hover{background:var(--ink2)}
+.framework-box{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.5rem 0}
+.framework-header{background:var(--ink2);padding:.8rem 1.5rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold2);font-weight:700}
+.framework-body{padding:1.2rem 1.5rem}
+.framework-steps{display:flex;flex-direction:column;gap:.8rem}
+.framework-step{display:flex;gap:1rem;align-items:flex-start}
+.step-num{width:28px;height:28px;background:var(--red);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
+.step-title{font-size:.85rem;font-weight:600;color:var(--ink)}
+.step-desc{font-size:.78rem;color:var(--muted);margin-top:.2rem;line-height:1.5}
+.redflag-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem;margin:1.5rem 0}
+.redflag-card{background:white;border:1px solid #f5d5d0;border-left:4px solid var(--red);border-radius:4px;padding:1rem}
+.redflag-signal{font-size:.75rem;font-weight:700;color:var(--red);margin-bottom:.4rem}
+.redflag-meaning{font-size:.78rem;color:#555;line-height:1.5}
+.cheatsheet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin:1.5rem 0}
+.cs-category{background:white;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.cs-cat-header{padding:.7rem 1rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:white}
+.cs-cat-header.red{background:var(--red)}
+.cs-cat-header.gold{background:var(--gold)}
+.cs-cat-header.green{background:var(--green)}
+.cs-cat-header.blue{background:var(--blue)}
+.cs-cat-header.ink{background:var(--ink2)}
+.cs-ratio-row{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;padding:.6rem 1rem;border-bottom:1px solid var(--border);font-size:.78rem}
+.cs-ratio-row:last-child{border-bottom:none}
+.cs-ratio-name{font-weight:600;color:var(--ink)}
+.cs-ratio-formula{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);margin-top:.15rem}
+.cs-ratio-bench{font-size:.7rem;color:var(--green2);font-weight:600;white-space:nowrap}
+.sector-example{background:white;border:1px solid var(--border);border-radius:6px;padding:1.2rem 1.5rem;margin:.6rem 0}
+.sector-example-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem}
+.sector-example-title.pharma{color:#8e44ad}
+.sector-example-title.banca{color:var(--blue)}
+.sector-example-title.seguros{color:var(--green)}
+.sector-example-body{font-size:.83rem;color:#444;line-height:1.65}
+.sector-examples-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.8rem;margin:1.2rem 0}
+.formula-block{background:#fff;border:1px solid var(--border);border-radius:6px;padding:1rem 1.5rem;margin:1rem 0;font-family:'DM Mono',monospace}
+.formula-main{font-size:.95rem;color:var(--ink);font-weight:500;margin-bottom:.4rem}
+.formula-components{font-size:.75rem;color:var(--muted);line-height:1.8}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.view.active .mod-body,.view.active .home-modules{animation:fadeSlideIn .3s ease forwards}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-eyebrow">Signature · Formación Interna</div>
+    <div class="sidebar-title">Finanzas para la Conversación con el CEO</div>
+  </div>
+  <div class="sidebar-progress-wrap">
+    <div class="progress-label">Progreso del curso</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text">Completados: <span id="progressCount">0</span> / 11</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Inicio</div>
+    <div class="nav-item active" onclick="showView('home')" id="nav-home">
+      <div class="nav-dot" style="font-size:.65rem">⌂</div>
+      <div><div class="nav-item-title">Vista general</div></div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Fundamentos</div>
+    <div class="nav-item" onclick="showView('m00')" id="nav-m00"><div class="nav-dot" id="dot-m00">00</div><div><div class="nav-item-title">Los tres estados financieros</div><div class="nav-item-meta">60 min · Fundacional</div></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Rentabilidad</div>
+    <div class="nav-item" onclick="showView('m01')" id="nav-m01"><div class="nav-dot" id="dot-m01">01</div><div><div class="nav-item-title">Márgenes operativos</div><div class="nav-item-meta">60 min</div></div></div>
+    <div class="nav-item" onclick="showView('m02')" id="nav-m02"><div class="nav-dot" id="dot-m02">02</div><div><div class="nav-item-title">ROE, ROA y ROIC</div><div class="nav-item-meta">55 min</div></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Liquidez y Deuda</div>
+    <div class="nav-item" onclick="showView('m03')" id="nav-m03"><div class="nav-dot" id="dot-m03">03</div><div><div class="nav-item-title">Ratios de liquidez</div><div class="nav-item-meta">50 min</div></div></div>
+    <div class="nav-item" onclick="showView('m04')" id="nav-m04"><div class="nav-dot" id="dot-m04">04</div><div><div class="nav-item-title">Estructura de deuda</div><div class="nav-item-meta">55 min</div></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Eficiencia Operativa</div>
+    <div class="nav-item" onclick="showView('m05')" id="nav-m05"><div class="nav-dot" id="dot-m05">05</div><div><div class="nav-item-title">DSO, DIO, DPO y CCC</div><div class="nav-item-meta">55 min</div></div></div>
+    <div class="nav-item" onclick="showView('m06')" id="nav-m06"><div class="nav-dot" id="dot-m06">06</div><div><div class="nav-item-title">Asset Turnover</div><div class="nav-item-meta">40 min</div></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Valoración</div>
+    <div class="nav-item" onclick="showView('m07')" id="nav-m07"><div class="nav-dot" id="dot-m07">07</div><div><div class="nav-item-title">Múltiplos de valoración</div><div class="nav-item-meta">60 min</div></div></div>
+    <div class="nav-item" onclick="showView('m08')" id="nav-m08"><div class="nav-dot" id="dot-m08">08</div><div><div class="nav-item-title">Free Cash Flow</div><div class="nav-item-meta">50 min</div></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Conversación CEO</div>
+    <div class="nav-item" onclick="showView('m09')" id="nav-m09"><div class="nav-dot" id="dot-m09">09</div><div><div class="nav-item-title">Framework pre-reunión</div><div class="nav-item-meta">65 min</div></div></div>
+    <div class="nav-item" onclick="showView('m10')" id="nav-m10"><div class="nav-dot" id="dot-m10">10</div><div><div class="nav-item-title">Red flags y simulación</div><div class="nav-item-meta">90 min</div></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-label">Recursos</div>
+    <div class="nav-item" onclick="showView('toolkit')" id="nav-toolkit"><div class="nav-dot" style="font-size:.6rem">★</div><div><div class="nav-item-title">Cheat Sheet · Toolkit</div></div></div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- HOME -->
+<div id="view-home" class="view active">
+  <div class="home-hero">
+    <div class="hero-eyebrow">Signature · Formación Interna · Consultor Sénior</div>
+    <h1 class="hero-title">Finanzas para la Conversación con el CEO</h1>
+    <p class="hero-subtitle">Domina los ratios financieros clave, aprende a leer el estado financiero de cualquier empresa en 30 minutos, y lleva la conversación con el CEO al terreno estratégico desde el primer minuto.</p>
+    <div class="hero-meta">
+      <div><div class="hero-stat-num">11</div><div class="hero-stat-label">Módulos</div></div>
+      <div><div class="hero-stat-num">10h</div><div class="hero-stat-label">Duración</div></div>
+      <div><div class="hero-stat-num">25+</div><div class="hero-stat-label">Ratios</div></div>
+      <div><div class="hero-stat-num">3</div><div class="hero-stat-label">Sectores</div></div>
+    </div>
+  </div>
+  <div class="home-objectives">
+    <div class="objectives-title">🎯 Objetivos</div>
+    <ul class="objectives-list">
+      <li>Interpretar P&L, Balance y Cash Flow de forma integrada</li>
+      <li>Calcular e interpretar 25+ ratios financieros críticos</li>
+      <li>Aplicar benchmarks de farma, banca y seguros</li>
+      <li>Detectar red flags antes de entrar a la reunión</li>
+      <li>Formular hipótesis estratégicas basadas en el perfil financiero</li>
+      <li>Hablar el lenguaje financiero del CEO con plena credibilidad</li>
+    </ul>
+  </div>
+  <div class="home-modules">
+    <h2 class="home-modules-title">Contenido del curso</h2>
+    <p class="home-modules-sub">Haz clic en cualquier módulo para empezar. Marca cada uno completado para seguir tu progreso.</p>
+    <div class="modules-grid">
+      <div class="module-card-home" style="--color:#555" onclick="showView('m00')" id="card-m00"><div class="card-num">MÓDULO 00 · FUNDACIONAL</div><div class="card-title">Los Tres Estados Financieros</div><div class="card-sub">P&L, Balance y Cash Flow — la trinidad que toda empresa maneja</div><div class="card-footer"><span class="card-time">⏱ 60 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:var(--red)" onclick="showView('m01')" id="card-m01"><div class="card-num">MÓDULO 01 · RENTABILIDAD</div><div class="card-title">Márgenes Operativos</div><div class="card-sub">Gross Margin, EBITDA Margin, Net Margin y los drivers que los mueven</div><div class="card-footer"><span class="card-time">⏱ 60 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:var(--red)" onclick="showView('m02')" id="card-m02"><div class="card-num">MÓDULO 02 · RENTABILIDAD</div><div class="card-title">Retorno sobre el Capital</div><div class="card-sub">ROE, ROA, ROIC y el spread frente al WACC</div><div class="card-footer"><span class="card-time">⏱ 55 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:#2980b9" onclick="showView('m03')" id="card-m03"><div class="card-num">MÓDULO 03 · LIQUIDEZ</div><div class="card-title">Ratios de Liquidez</div><div class="card-sub">Current Ratio, Quick Ratio, Working Capital y sus implicaciones</div><div class="card-footer"><span class="card-time">⏱ 50 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:#2980b9" onclick="showView('m04')" id="card-m04"><div class="card-num">MÓDULO 04 · DEUDA</div><div class="card-title">Estructura de Deuda y Solvencia</div><div class="card-sub">Leverage, covenants bancarios y riesgo de refinanciación</div><div class="card-footer"><span class="card-time">⏱ 55 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:var(--gold)" onclick="showView('m05')" id="card-m05"><div class="card-num">MÓDULO 05 · EFICIENCIA</div><div class="card-title">Capital Circulante</div><div class="card-sub">DSO, DIO, DPO y el Cash Conversion Cycle</div><div class="card-footer"><span class="card-time">⏱ 55 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:var(--gold)" onclick="showView('m06')" id="card-m06"><div class="card-num">MÓDULO 06 · EFICIENCIA</div><div class="card-title">Asset Turnover y Productividad</div><div class="card-sub">Modelos asset-light vs asset-heavy e intensidad inversora</div><div class="card-footer"><span class="card-time">⏱ 40 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:var(--green2)" onclick="showView('m07')" id="card-m07"><div class="card-num">MÓDULO 07 · VALORACIÓN</div><div class="card-title">Múltiplos de Valoración</div><div class="card-sub">EV/EBITDA, P/E, P/B — lo que usa el mercado y por qué</div><div class="card-footer"><span class="card-time">⏱ 60 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:var(--green2)" onclick="showView('m08')" id="card-m08"><div class="card-num">MÓDULO 08 · VALORACIÓN</div><div class="card-title">Free Cash Flow</div><div class="card-sub">Por qué el FCF es el indicador más honesto de una empresa</div><div class="card-footer"><span class="card-time">⏱ 50 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:#8e44ad" onclick="showView('m09')" id="card-m09"><div class="card-num">MÓDULO 09 · CEO</div><div class="card-title">Framework Pre-Reunión</div><div class="card-sub">Cómo leer el perfil financiero de una empresa en 30 minutos</div><div class="card-footer"><span class="card-time">⏱ 65 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:#8e44ad" onclick="showView('m10')" id="card-m10"><div class="card-num">MÓDULO 10 · CEO</div><div class="card-title">Red Flags y Simulación</div><div class="card-sub">Señales de alerta y 3 casos prácticos (farma, banca, seguros)</div><div class="card-footer"><span class="card-time">⏱ 90 min</span><span class="card-cta">Empezar →</span></div></div>
+      <div class="module-card-home" style="--color:var(--gold2)" onclick="showView('toolkit')" id="card-toolkit"><div class="card-num">★ TOOLKIT</div><div class="card-title">Cheat Sheet: 25 Ratios Esenciales</div><div class="card-sub">Fórmulas, benchmarks sectoriales y guía de interpretación</div><div class="card-footer"><span class="card-time">⏱ Referencia</span><span class="card-cta">Ver →</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 00 ══════════════════ -->
+<div id="view-m00" class="view">
+  <div class="module-view-header" data-num="00">
+    <div class="mod-eyebrow">Fundamentos · Módulo 00</div>
+    <h1 class="mod-title">Los Tres Estados Financieros</h1>
+    <p class="mod-subtitle">La base que todo director debe dominar antes de cualquier otra métrica</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-gold">⏱ 60 min</span><span class="mod-tag tag-green">Fundacional</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar sabrás leer e interpretar P&L, Balance y Cash Flow de forma integrada. Entenderás por qué <strong>beneficio contable ≠ caja real</strong> y cómo esta distinción explica la mayoría de las crisis empresariales.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">Por qué ningún documento basta solo</div>
+      <p class="body-text">Cada estado financiero cuenta una historia parcial. El error más frecuente es gestionar mirando solo el P&L — el documento que más gusta a los CEOs porque muestra crecimiento y beneficio. Sin embargo, una empresa puede tener un P&L brillante mientras el Balance se deteriora silenciosamente (deuda creciente, activos envejecidos) y el Cash Flow se agota (cobros lentos, pagos adelantados a proveedores). La lectura integrada de los tres es la habilidad diferencial del consultor.</p>
+      <table class="fin-table">
+        <thead><tr><th>Documento</th><th>¿Qué mide?</th><th>Perspectiva</th><th>Pregunta central</th><th>Limitación clave</th></tr></thead>
+        <tbody>
+          <tr><td><strong>P&L</strong></td><td>Ingresos, gastos y beneficio contable</td><td>Período (mes, trimestre, año)</td><td>¿El negocio genera valor económico?</td><td>Incluye partidas no-cash: amortizaciones y provisiones</td></tr>
+          <tr><td><strong>Balance</strong></td><td>Activos, pasivos y patrimonio neto</td><td>Foto estática a fecha concreta</td><td>¿Qué tiene, qué debe, cuánto vale?</td><td>Valoración histórica, no de mercado</td></tr>
+          <tr><td><strong>Cash Flow</strong></td><td>Entradas y salidas reales de efectivo</td><td>Período acumulado</td><td>¿De dónde viene y adónde va el dinero?</td><td>No mide rentabilidad, solo flujo</td></tr>
+        </tbody>
+      </table>
+      <div class="callout dark">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-label">Insight fundamental</div>
+          <div class="callout-text">Las empresas no quiebran por ser poco rentables — quiebran por quedarse sin caja. Lehman Brothers tenía beneficios en su último P&L antes de la quiebra. Wirecard reportaba márgenes excelentes mientras su caja era ficticia. La regla de oro del análisis financiero: <strong>siempre valida el P&L con el Cash Flow.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">El P&L — Anatomía línea a línea</div>
+      <p class="body-text">El P&L se lee de arriba abajo: cada línea resta un tipo de coste hasta llegar al beneficio neto. Lo importante no es solo el número final — es entender <em>en qué nivel del P&L se origina un problema o una mejora</em>. Un Gross Margin que cae señala un problema de producto o precio. Un EBITDA que cae con Gross Margin estable señala inflación de costes fijos. Son problemas distintos con soluciones radicalmente distintas.</p>
+      <table class="fin-table">
+        <thead><tr><th>Línea</th><th>Qué incluye exactamente</th><th>Decisión empresarial que refleja</th><th>Ratio que genera</th></tr></thead>
+        <tbody>
+          <tr class="row-gold"><td><strong>Revenue</strong></td><td>Ventas netas de descuentos comerciales y devoluciones</td><td>Estrategia de precios, volumen, mix de producto</td><td>Base de todos los márgenes</td></tr>
+          <tr><td>(−) COGS</td><td>Costes directos: materiales, producción, distribución directa, licencias</td><td>Eficiencia productiva, poder de negociación con proveedores</td><td>Gross Margin = (Rev−COGS)/Rev</td></tr>
+          <tr class="row-gold"><td><strong>= Gross Profit</strong></td><td>Revenue menos lo que cuesta hacer o entregar el producto</td><td>Rentabilidad del producto puro antes de estructura</td><td>Gross Margin %</td></tr>
+          <tr><td>(−) OpEx</td><td>Personal indirecto, marketing, alquiler, tecnología, I+D, costes generales</td><td>Inversión en crecimiento, eficiencia organizativa</td><td>Cost Ratio = OpEx/Rev</td></tr>
+          <tr class="row-gold"><td><strong>= EBITDA</strong></td><td>Resultado antes de amortizaciones, intereses e impuestos</td><td>Eficiencia operativa del modelo de negocio</td><td>EBITDA Margin = EBITDA/Rev</td></tr>
+          <tr><td>(−) D&A</td><td>Depreciación (activos tangibles) + Amortización (intangibles, goodwill)</td><td>Ritmo de inversión histórica en activos</td><td>D&A/Revenue</td></tr>
+          <tr class="row-gold"><td><strong>= EBIT</strong></td><td>Beneficio operativo después de amortizaciones</td><td>Eficiencia incluyendo el coste del capital físico</td><td>EBIT Margin = EBIT/Rev</td></tr>
+          <tr><td>(−) Intereses netos</td><td>Gastos financieros de deuda menos ingresos financieros</td><td>Decisión de estructura de capital (deuda vs equity)</td><td>Interest Coverage = EBIT/Intereses</td></tr>
+          <tr><td>(−) Impuestos</td><td>Impuesto de Sociedades + impuestos diferidos</td><td>Eficiencia fiscal, jurisdicción</td><td>Effective Tax Rate</td></tr>
+          <tr class="row-total"><td><strong>= Net Income</strong></td><td>Beneficio neto disponible para accionistas</td><td>Retorno total del negocio para el equity</td><td>Net Margin, EPS, ROE</td></tr>
+        </tbody>
+      </table>
+      <div class="callout gold">
+        <div class="callout-icon">⭐</div>
+        <div class="callout-body">
+          <div class="callout-label">Por qué el EBITDA es el rey de las métricas</div>
+          <div class="callout-text">El EBITDA excluye tres elementos que no son comparables entre empresas: (1) amortizaciones — que dependen de cuánto y cuándo se invirtió en activos; (2) intereses — que dependen de la estructura financiera elegida; (3) impuestos — que dependen de la jurisdicción y la optimización fiscal. Al excluirlos, permite comparar la eficiencia operativa pura de dos empresas del mismo sector aunque tengan estructuras de capital completamente distintas. Por eso bancos, fondos de private equity y consultoras lo usan como denominador estándar en valoraciones y benchmarking.</div>
+        </div>
+      </div>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 Farma — AstraZeneca 2023</div><div class="sector-example-body">Revenue: $45.8B · Gross Margin: ~82% (mayoría es R&D y patentes, COGS muy bajo) · EBITDA Margin: ~30% · La diferencia entre Gross Margin y EBITDA Margin refleja el enorme gasto en I+D (~22% del revenue) — la apuesta estratégica por el pipeline futuro.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 Banca — BBVA 2023</div><div class="sector-example-body">En banca el P&L tiene estructura distinta: el "revenue" equivalente es el Margen de Intereses (NII) + comisiones netas. El "COGS" es el coste de los depósitos y el funding. El concepto EBITDA no aplica directamente — se usa el Beneficio Antes de Provisiones (Pre-Provision Profit) como proxy operativo.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ Seguros — Mapfre 2023</div><div class="sector-example-body">Revenue = Primas emitidas. El "COGS" son los siniestros pagados (Loss Ratio). Los gastos operativos son comisiones y administración (Expense Ratio). El Combined Ratio = Loss + Expense. Si es &lt;100%, la aseguradora gana dinero en el negocio técnico.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 3</div>
+      <div class="section-title">El Balance General — la foto patrimonial</div>
+      <p class="body-text">El Balance refleja la <strong>acumulación de todas las decisiones financieras históricas</strong> de la empresa. Cada activo es el resultado de una inversión pasada. Cada pasivo es una obligación contraída. El patrimonio neto es lo que queda para los accionistas si se liquida todo a valor contable. La ecuación fundamental es inviolable: <strong>Activo = Pasivo + Patrimonio Neto</strong>.</p>
+      <div class="balance-t">
+        <div class="balance-col">
+          <div class="balance-col-header red">ACTIVO — Los recursos de la empresa</div>
+          <div class="balance-group">
+            <div class="balance-group-title">Activo Corriente (&lt;1 año)</div>
+            <div class="balance-item">· <strong>Caja y equivalentes</strong> — dinero disponible inmediatamente</div>
+            <div class="balance-item">· <strong>Cuentas a cobrar</strong> (Clientes) — facturas pendientes de cobro</div>
+            <div class="balance-item">· <strong>Inventario</strong> — stock de materias primas y producto acabado</div>
+            <div class="balance-item">· Activos financieros a corto plazo</div>
+          </div>
+          <div class="balance-group">
+            <div class="balance-group-title">Activo No Corriente (&gt;1 año)</div>
+            <div class="balance-item">· <strong>PP&amp;E</strong> — plantas, maquinaria, equipos, edificios</div>
+            <div class="balance-item">· <strong>Intangibles</strong> — patentes, marcas, software, licencias</div>
+            <div class="balance-item">· <strong>Goodwill</strong> — prima pagada en adquisiciones</div>
+            <div class="balance-item">· Inversiones en participadas, activos por impuestos diferidos</div>
+          </div>
+          <div class="balance-total">TOTAL ACTIVO</div>
+        </div>
+        <div class="balance-col">
+          <div class="balance-col-header green">PASIVO + PATRIMONIO</div>
+          <div class="balance-group">
+            <div class="balance-group-title">Pasivo Corriente (&lt;1 año)</div>
+            <div class="balance-item">· <strong>Proveedores</strong> (Accounts Payable) — deuda operativa</div>
+            <div class="balance-item">· <strong>Deuda financiera a corto</strong> — vencimientos próximos</div>
+            <div class="balance-item">· Deudas fiscales, nóminas pendientes, anticipos de clientes</div>
+          </div>
+          <div class="balance-group">
+            <div class="balance-group-title">Pasivo No Corriente (&gt;1 año)</div>
+            <div class="balance-item">· <strong>Deuda financiera a largo</strong> — préstamos, bonos</div>
+            <div class="balance-item">· Provisiones por pensiones, litigios</div>
+            <div class="balance-item">· Pasivos por arrendamiento (IFRS 16)</div>
+          </div>
+          <div class="balance-group">
+            <div class="balance-group-title blue">Patrimonio Neto</div>
+            <div class="balance-item">· Capital social + Prima de emisión</div>
+            <div class="balance-item">· Reservas acumuladas de años anteriores</div>
+            <div class="balance-item">· <strong>Resultado del ejercicio</strong> (viene del P&L)</div>
+          </div>
+          <div class="balance-total">TOTAL PASIVO + PATRIMONIO</div>
+        </div>
+      </div>
+      <div class="callout red">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-label">El goodwill — la bomba silenciosa del balance</div>
+          <div class="callout-text">El goodwill es la diferencia entre lo que se pagó por una adquisición y el valor contable de los activos comprados. Si representa más del 30–40% del activo total, la empresa ha pagado mucho por intangibles (marca, posición competitiva, sinergias esperadas). Si esas sinergias no se materializan, el goodwill se deteriora (<em>impairment</em>) y genera un cargo en el P&L que puede hundir el beneficio neto. Ejemplo clásico: cuando Telefónica adquirió activos en Latinoamérica, las posteriores depreciaciones de goodwill impactaron severamente sus resultados durante años.</div>
+        </div>
+      </div>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 Balance Farma</div><div class="sector-example-body">En farma, el activo no corriente está dominado por intangibles (patentes, licencias) y goodwill de adquisiciones. Los grandes del sector como Roche o AstraZeneca tienen goodwill e intangibles que representan el 50–70% del activo total. El activo corriente incluye receivables altos porque las aseguradoras y sistemas de salud pagan a 60–120 días.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 Balance Banca</div><div class="sector-example-body">El balance bancario es radicalmente distinto: el activo principal son los préstamos concedidos (créditos a clientes, hipotecas, préstamos corporativos). El pasivo principal son los depósitos. El apalancamiento es estructuralmente alto (Deuda/Equity de 8–12x es normal en banca). El Tier 1 Capital Ratio (Core Equity / Risk-Weighted Assets) es el ratio de solvencia clave, regulado por Basilea III (&gt;10.5% mínimo).</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ Balance Seguros</div><div class="sector-example-body">En seguros, el pasivo incluye las Reservas Técnicas (provisiones para siniestros futuros sobre pólizas vigentes) — pueden representar el 60–75% del pasivo total. El activo son las inversiones que respaldan esas reservas (bonos, renta fija). El Solvency II Ratio (activos / requerimiento de capital) mide si la aseguradora puede cubrir shocks inesperados (&gt;150% es confortante).</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 4</div>
+      <div class="section-title">El Cash Flow Statement — el documento más honesto</div>
+      <p class="body-text">El Cash Flow Statement no admite ajustes contables: o el dinero entró en la cuenta bancaria, o no entró. Es el antídoto contra la contabilidad creativa. Se divide en tres secciones que cuentan historias muy distintas sobre la empresa:</p>
+      <table class="fin-table">
+        <thead><tr><th>Sección</th><th>Qué incluye</th><th>Cómo se calcula</th><th>Señal de salud</th></tr></thead>
+        <tbody>
+          <tr><td><strong class="cell-green">CFO — Operativo</strong></td><td>Caja generada por la actividad diaria del negocio</td><td>Net Income + D&amp;A − Δ Working Capital − otros</td><td>Debe ser positivo, creciente y mayor que el Net Income</td></tr>
+          <tr><td><strong class="cell-gold">CFI — Inversión</strong></td><td>CapEx (compra de activos), adquisiciones, desinversiones</td><td>Compras PP&amp;E + M&amp;A − ventas de activos</td><td>Negativo en empresas que invierten en crecimiento</td></tr>
+          <tr><td><strong>CFF — Financiación</strong></td><td>Deuda nueva/amortizada, dividendos, recompra de acciones, ampliaciones</td><td>Δ Deuda + Δ Capital − Dividendos</td><td>Refleja estrategia: ¿se financia o se devuelve capital?</td></tr>
+          <tr class="row-total"><td><strong>FCF = CFO − CapEx</strong></td><td>Caja libre después de mantener y hacer crecer el negocio</td><td>CFO menos el CapEx de mantenimiento y crecimiento</td><td>El número más importante para inversores y analistas</td></tr>
+        </tbody>
+      </table>
+      <div class="callout green">
+        <div class="callout-icon">🎯</div>
+        <div class="callout-body">
+          <div class="callout-label">Cómo leer el Cash Flow en 60 segundos</div>
+          <div class="callout-text">Patrón ideal: <strong>CFO positivo y alto → empresa genera caja operativa. CFI negativo → empresa invierte en crecimiento. CFF negativo → devuelve capital a accionistas o reduce deuda.</strong> Patrón preocupante: CFO negativo (el negocio consume caja), CFF positivo (se financia con más deuda o capital). Esto es el patrón de una empresa en dificultades o una startup en fase de inversión intensa — muy diferente contexto, diagnóstico opuesto.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 5</div>
+      <div class="section-title">Las tres conexiones entre documentos — por qué profit ≠ cash</div>
+      <p class="body-text">La contabilidad de devengo (<em>accrual accounting</em>) registra ingresos y gastos cuando se <em>devengan</em> — cuando la empresa tiene derecho a cobrar o la obligación de pagar — no cuando el dinero se mueve físicamente. Esta diferencia crea tres tipos de divergencias estructurales entre P&L y caja:</p>
+      <ul class="bullet-list">
+        <li><strong>Timing de cobro:</strong> Vendes €10M en diciembre (→ revenue en P&L) pero cobras en marzo (→ sin caja). El cliente aparece en "Cuentas a cobrar" del Balance. Cuando cobra en marzo, el CFO sube pero el P&L no cambia.</li>
+        <li><strong>CapEx vs amortización:</strong> Compras una máquina por €2M (→ salida de caja inmediata en CFI). La amortizas en 10 años: solo €200K/año aparecen como gasto en el P&L. El P&L subestima el coste real del activo. El Cash Flow lo muestra completo.</li>
+        <li><strong>Provisiones:</strong> Dotas una provisión de €5M por un litigio (→ gasto en P&L ahora). Pero no hay salida de caja hasta que el juicio se resuelva, quizás en 3 años. El P&L anticipa el riesgo; el Cash Flow lo registrará más tarde.</li>
+        <li><strong>El puente:</strong> El Net Income pasa al Balance (aumenta Reservas). Las amortizaciones se suman de vuelta en el CFO porque son gasto no-cash. La caja final del Cash Flow = la partida Caja del activo corriente del Balance.</li>
+      </ul>
+      <div class="callout dark">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-label">Insight para la reunión con el CEO</div>
+          <div class="callout-text">Cuando el CEO dice "tenemos buenas ventas pero no vemos el dinero en caja", la respuesta está siempre en una de tres palancas: (1) los clientes pagan tarde (DSO alto), (2) el stock se acumula sin rotar (DIO alto), o (3) están pagando proveedores antes de tiempo (DPO bajo). El Working Capital es el sumidero invisible donde desaparece el beneficio contable.</div>
+        </div>
+      </div>
+      <div class="ceo-box">
+        <div class="ceo-box-title">Conversación con el CEO — Módulo 00</div>
+        <div class="ceo-question">
+          <div class="ceo-label ceo-q-label">CEO</div>
+          <div class="ceo-q-text">"El ejercicio ha ido bien, tenemos beneficios récord, pero el banco me presiona y la caja no sube. No lo entiendo."</div>
+          <div class="ceo-label ceo-a-label">TÚ</div>
+          <div class="ceo-a-text">El problema clásico de accrual vs cash. Miro tres cosas: (1) ¿ha crecido el saldo de clientes en balance? — estarías financiando a tus clientes. (2) ¿Ha subido el stock? — dinero inmovilizado en almacén. (3) ¿CapEx elevado? — inversiones que no pasan por el P&L pero sí drenan caja. Dame acceso al Cash Flow Statement y en 10 minutos te digo dónde va el dinero.</div>
+        </div>
+        <div class="ceo-question">
+          <div class="ceo-label ceo-q-label">CEO</div>
+          <div class="ceo-q-text">"Mi contable me habla de beneficio neto, mi CFO me habla de EBITDA y mi inversor de FCF. ¿Cuál es el número real?"</div>
+          <div class="ceo-label ceo-a-label">TÚ</div>
+          <div class="ceo-a-text">Cada uno mide algo distinto y los tres son válidos en su contexto. EBITDA = eficiencia operativa pura (para comparar con competidores). Beneficio neto = retorno total incluyendo deuda e impuestos (para el accionista). FCF = caja real generada (para decisiones de inversión, dividendos y M&A). El FCF es el más difícil de manipular contablemente — por eso los inversores lo prefieren.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise-block">
+      <div class="exercise-title">Ejercicio práctico — Módulo 00</div>
+      <div class="exercise-desc">Descarga el Annual Report de AstraZeneca (farma), BBVA (banca) o Mapfre (seguros). Localiza los tres estados y responde:</div>
+      <ol class="exercise-steps">
+        <li>¿Cuál es el EBITDA (o equivalente en banca/seguros) y su margen sobre revenue?</li>
+        <li>¿La caja final del Cash Flow coincide con la caja en el Balance?</li>
+        <li>¿El CFO es mayor o menor que el Net Income? ¿Por qué crees que hay diferencia?</li>
+        <li>¿Cuánto representa el goodwill e intangibles sobre el activo total? ¿Qué adquisiciones lo explican?</li>
+        <li>Formula una hipótesis sobre el mayor riesgo financiero de la empresa en los próximos 12 meses.</li>
+      </ol>
+    </div>
+    <button class="complete-btn" onclick="markDone('m00',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('home')">← Inicio</button>
+    <button class="mod-nav-btn primary" onclick="showView('m01')">Módulo 01: Márgenes →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 01 ══════════════════ -->
+<div id="view-m01" class="view">
+  <div class="module-view-header" data-num="01">
+    <div class="mod-eyebrow">Rentabilidad · Módulo 01</div>
+    <h1 class="mod-title">Márgenes Operativos</h1>
+    <p class="mod-subtitle">Gross Margin, EBITDA Margin, Net Margin — y cómo detectar dónde se pierde la rentabilidad</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-red">⏱ 60 min</span><span class="mod-tag tag-gold">Alta relevancia CEO</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar sabrás calcular e interpretar los cuatro márgenes clave del P&L, identificar en qué línea se origina un problema de rentabilidad, y <strong>diagnosticar si la causa es pricing, costes directos, estructura o financiación</strong>. Aplicarás benchmarks específicos de farma, banca y seguros.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">Los cuatro márgenes y qué decisión empresarial reflejan</div>
+      <p class="body-text">Cada margen es una "radiografía" de un nivel distinto del negocio. Leerlos en cascada permite aislar exactamente dónde se genera o se destruye rentabilidad:</p>
+      <div class="ratio-cards">
+        <div class="ratio-card" style="--color:var(--red)">
+          <div class="ratio-card-name">Gross Margin</div>
+          <div class="ratio-card-formula">(Revenue − COGS) / Revenue</div>
+          <div class="ratio-card-bench">Farma: 70–85% · Banca: N/A · Seguros: 20–35%</div>
+          <div class="ratio-card-desc">Mide la rentabilidad del producto/servicio puro, antes de la estructura organizativa. Si cae, hay problema de pricing, de coste de producción, o de mix de producto hacia líneas menos rentables.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--gold)">
+          <div class="ratio-card-name">EBITDA Margin</div>
+          <div class="ratio-card-formula">EBITDA / Revenue</div>
+          <div class="ratio-card-bench">Farma: 25–40% · Banca: ~40–50% (equiv.) · Seguros: 10–18%</div>
+          <div class="ratio-card-desc">Proxy de eficiencia operativa real. Favorito de inversores y bancos para comparar empresas sin ruido de estructura financiera ni decisiones contables de amortización.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--blue)">
+          <div class="ratio-card-name">EBIT Margin</div>
+          <div class="ratio-card-formula">EBIT / Revenue</div>
+          <div class="ratio-card-bench">Farma: 20–35% · Industrial: 5–12%</div>
+          <div class="ratio-card-desc">Incluye el efecto de las amortizaciones. Especialmente relevante en sectores asset-heavy (industria, utilities, farma con mucho I+D capitalizado) donde la D&A es material.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--green2)">
+          <div class="ratio-card-name">Net Profit Margin</div>
+          <div class="ratio-card-formula">Net Income / Revenue</div>
+          <div class="ratio-card-bench">Farma: 15–25% · Banca: 15–25% (ROE) · Seguros: 5–10%</div>
+          <div class="ratio-card-desc">Después de impuestos y financiación. Puede ser negativo en empresas en expansión con mucha deuda aunque el negocio operativo sea excelente. Siempre contextualiza con la estructura de capital.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">Diagnóstico en cascada — ¿dónde se origina el problema?</div>
+      <p class="body-text">El poder del análisis de márgenes está en leer la cascada completa. Cada patrón de compresión señala una causa distinta con una solución distinta. Esto es lo que permite al consultor llegar a la reunión con hipótesis concretas en lugar de preguntas genéricas:</p>
+      <table class="fin-table">
+        <thead><tr><th>Síntoma observado</th><th>Margen afectado</th><th>Causa más probable</th><th>Palanca de mejora</th></tr></thead>
+        <tbody>
+          <tr><td>Revenue crece, Gross Margin cae</td><td>Gross Margin</td><td>Presión de precios, subida de costes de materia prima, cambio de mix hacia productos baratos</td><td>Pricing, renegociación de proveedores, gestión de mix</td></tr>
+          <tr><td>Gross Margin estable, EBITDA cae</td><td>EBITDA Margin</td><td>Inflación de costes fijos: personal, alquiler, IT, marketing sin retorno</td><td>Racionalización OpEx, automatización, revisión de headcount</td></tr>
+          <tr><td>EBITDA estable, EBIT cae</td><td>EBIT Margin</td><td>Aumento de amortizaciones (CapEx reciente elevado) o deterioro de activos</td><td>Revisión del plan de CapEx, optimización de vida útil de activos</td></tr>
+          <tr><td>EBIT positivo, Net Income negativo</td><td>Net Margin</td><td>Carga financiera excesiva (deuda cara) o tipo impositivo elevado</td><td>Refinanciación de deuda, optimización fiscal</td></tr>
+          <tr><td>Todos los márgenes comprimen juntos</td><td>Todos</td><td>Crisis de volumen con base de costes fijos alta (leverage operativo)</td><td>Análisis del break-even, reducción de costes fijos estructurales</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 3</div>
+      <div class="section-title">Operating Leverage — la palanca de doble filo</div>
+      <p class="body-text">El <strong>apalancamiento operativo</strong> mide qué porcentaje de los costes son fijos vs variables. Una empresa con alto leverage operativo amplifica tanto las subidas como las bajadas de revenue en el EBITDA. Es uno de los conceptos más importantes para entender la sensibilidad de un negocio al ciclo económico.</p>
+      <div class="formula-block">
+        <div class="formula-main">Degree of Operating Leverage (DOL) = % Δ EBITDA / % Δ Revenue</div>
+        <div class="formula-components">Un DOL de 3x significa que si el revenue sube un 10%, el EBITDA sube un 30%. Y si el revenue baja un 10%, el EBITDA cae un 30%.</div>
+      </div>
+      <table class="fin-table">
+        <thead><tr><th>Escenario</th><th>Revenue</th><th>Costes fijos</th><th>Costes variables (30%)</th><th>EBITDA</th><th>EBITDA Margin</th></tr></thead>
+        <tbody>
+          <tr><td>Base</td><td>€100M</td><td>€40M</td><td>€30M</td><td>€30M</td><td class="cell-gold">30%</td></tr>
+          <tr><td>+20% revenue</td><td>€120M</td><td>€40M</td><td>€36M</td><td>€44M</td><td class="cell-green">37% (+7pp)</td></tr>
+          <tr><td>−20% revenue</td><td>€80M</td><td>€40M</td><td>€24M</td><td>€16M</td><td class="cell-red">20% (−10pp)</td></tr>
+          <tr><td>−33% revenue (crisis)</td><td>€67M</td><td>€40M</td><td>€20M</td><td>€7M</td><td class="cell-red">10% (−20pp)</td></tr>
+        </tbody>
+      </table>
+      <div class="callout red">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-label">Insight — Farma tiene el mayor leverage operativo del mundo</div>
+          <div class="callout-text">Una farmacéutica innovadora gasta €1–2B en desarrollar un medicamento (coste fijo hundido). Una vez aprobado, el coste marginal de fabricar una pastilla es de céntimos. Si vende 100M de dosis a €10, el margen incremental es del 95%+. Esto explica por qué Pfizer pasó de €10B a €100B de revenue con la vacuna COVID sin necesitar multiplicar sus costes por 10. El leverage operativo en farma es brutal — tanto en las subidas como cuando expira una patente y el revenue colapsa.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 4</div>
+      <div class="section-title">Benchmarks de márgenes por sector — con ejemplos reales</div>
+      <table class="fin-table">
+        <thead><tr><th>Sector</th><th>Gross Margin</th><th>EBITDA Margin</th><th>Net Margin</th><th>Empresa referencia</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Farma innovadora</strong></td><td>70–85%</td><td>25–40%</td><td>15–25%</td><td>AstraZeneca, Roche, Pfizer</td></tr>
+          <tr><td><strong>Farma genéricos</strong></td><td>40–60%</td><td>15–25%</td><td>8–15%</td><td>Teva, Mylan, Sandoz</td></tr>
+          <tr><td><strong>Software/SaaS</strong></td><td>70–85%</td><td>15–35%</td><td>5–20%</td><td>SAP, Salesforce, ServiceNow</td></tr>
+          <tr><td><strong>Consultoría</strong></td><td>30–50%</td><td>10–20%</td><td>5–12%</td><td>Accenture, McKinsey (privada)</td></tr>
+          <tr><td><strong>Industrial</strong></td><td>20–35%</td><td>8–15%</td><td>3–8%</td><td>Siemens, ABB, Schneider</td></tr>
+          <tr><td><strong>Retail</strong></td><td>25–40%</td><td>5–10%</td><td>2–5%</td><td>Inditex, H&M, Amazon Retail</td></tr>
+        </tbody>
+      </table>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 Farma — Métricas específicas</div><div class="sector-example-body">En farma, el R&D/Revenue ratio (típicamente 15–25%) es tan importante como el EBITDA Margin porque determina el pipeline futuro. Una farma con EBITDA Margin del 35% pero R&D del 8% está "cosechando" sus patentes sin reinvertir — riesgo estratégico alto cuando expiren. La regla: EBITDA Margin + R&D% deben sumar &gt;45% en farma innovadora para indicar inversión sostenida.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 Banca — Net Interest Margin (NIM)</div><div class="sector-example-body">En banca no se habla de Gross Margin sino de <strong>Net Interest Margin (NIM)</strong>: (Ingresos de intereses − Costes de financiación) / Activos rentables medios. Un NIM de 2–3% es sano en Europa. La eficiencia se mide con el <strong>Cost-to-Income Ratio</strong> (Costes operativos / Ingresos totales): &lt;50% es excelente, &gt;65% es preocupante. BBVA ronda el 43%, lo que lo hace uno de los más eficientes de Europa.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ Seguros — Combined Ratio</div><div class="sector-example-body">La métrica equivalente al EBITDA Margin en seguros es el <strong>Combined Ratio</strong> = Loss Ratio + Expense Ratio. <strong>Si &lt;100%: la aseguradora gana dinero en el negocio técnico.</strong> Si &gt;100%: pierde en seguros y necesita los ingresos de sus inversiones para ser rentable. Mapfre tiene un Combined Ratio de ~95–97%, lo que es muy sano. AXA ronda el 94%. El mercado US de property &amp; casualty históricamente opera cerca de 100%.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 5</div>
+      <div class="section-title">La regla de los 40 (Rule of 40) — para empresas en crecimiento</div>
+      <p class="body-text">Para empresas de alto crecimiento (SaaS, biotech, startups), el EBITDA Margin en solitario no es suficiente porque muchas crecen intencionalmente a pérdidas. La <strong>Rule of 40</strong> combina crecimiento y rentabilidad en una sola métrica:</p>
+      <div class="formula-block">
+        <div class="formula-main">Rule of 40 = Revenue Growth Rate (%) + EBITDA Margin (%)</div>
+        <div class="formula-components">Si el resultado es ≥40, la empresa es considerada "saludable" en términos de equilibrio crecimiento/rentabilidad.<br>Ejemplo: +60% crecimiento + (−15%) EBITDA Margin = 45 → pasa la regla.<br>Ejemplo: +15% crecimiento + 20% EBITDA Margin = 35 → no pasa → ni crece suficiente ni es rentable.</div>
+      </div>
+      <div class="callout gold">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-label">Cuándo usar la Rule of 40</div>
+          <div class="callout-text">Útil en empresas de SaaS, biotech en fase de lanzamiento, y cualquier empresa donde el management argumente que las pérdidas son "inversión estratégica en crecimiento". Si la empresa lleva 5+ años sin superar 40, la narrativa de inversión empieza a ser insostenible.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ceo-box">
+      <div class="ceo-box-title">Conversación con el CEO — Módulo 01</div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"Nuestro margen bruto ha bajado 4 puntos este año pero el revenue ha crecido un 15%. El equipo comercial dice que es por el mix. ¿Cómo lo interpretas?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">Cuatro puntos de Gross Margin con €X de revenue son €Xm de valor destruido — no es una nota a pie de página. El "mix" puede ser la causa real o puede ser una racionalización. Para saberlo necesito el Gross Margin por línea de producto o canal: ¿el producto de menor margen es el que más crece? ¿O hay también presión de precios en el mismo mix? Son diagnósticos distintos con implicaciones radicalmente diferentes para la estrategia comercial.</div>
+      </div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"El EBITDA crece un 8% pero el beneficio neto está plano. ¿Por qué no llega el crecimiento a la última línea?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">La brecha entre EBITDA y Net Income tiene tres posibles absorbentes: (1) amortizaciones más altas — ¿hubo CapEx elevado en los últimos 2–3 años? (2) carga financiera — ¿ha subido el coste de la deuda con los tipos de interés? (3) impuestos — ¿cambio de estructura fiscal o menos créditos fiscales? Dame el desglose y en 15 minutos te digo dónde está el sumidero.</div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m01',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m00')">← Módulo 00</button>
+    <button class="mod-nav-btn primary" onclick="showView('m02')">Módulo 02: ROE, ROIC →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 02 ══════════════════ -->
+<div id="view-m02" class="view">
+  <div class="module-view-header" data-num="02">
+    <div class="mod-eyebrow">Rentabilidad · Módulo 02</div>
+    <h1 class="mod-title">Retorno sobre el Capital</h1>
+    <p class="mod-subtitle">ROE, ROA, ROIC — y la pregunta que importa: ¿crea o destruye valor esta empresa?</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-red">⏱ 55 min</span><span class="mod-tag tag-gold">Narrativa estratégica</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar entenderás la diferencia entre ROE, ROA y ROIC, sabrás descomponer el ROE con DuPont para identificar su fuente real, y podrás determinar si una empresa <strong>crea o destruye valor económico</strong> comparando ROIC con WACC.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">ROE — Return on Equity — la perspectiva del accionista</div>
+      <div class="formula-block">
+        <div class="formula-main">ROE = Net Income / Shareholders' Equity (promedio)</div>
+        <div class="formula-components">Shareholders' Equity = Capital Social + Reservas + Resultado del Ejercicio<br>Se usa el promedio entre inicio y fin de año para evitar distorsiones por ampliaciones de capital puntuales.</div>
+      </div>
+      <p class="body-text">El ROE mide cuánto beneficio genera la empresa por cada euro que los accionistas tienen invertido. Un ROE del 20% significa que por cada €100 de patrimonio neto, la empresa genera €20 de beneficio. Parece simple, pero tiene una trampa importante: <strong>una empresa muy endeudada puede tener un ROE alto simplemente porque tiene poco equity, no porque sea más eficiente</strong>. Para desenmascarar la fuente real del ROE existe el análisis DuPont.</p>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 ROE Farma</div><div class="sector-example-body">AstraZeneca ROE ~25–35%. Roche ~35–45%. Los ROEs altos en farma innovadora reflejan los altísimos márgenes de sus productos con patente. Cuando expiran patentes, el ROE puede caer abruptamente si no hay productos en pipeline que los sustituyan.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 ROE Banca</div><div class="sector-example-body">En banca, el ROE es la métrica de rentabilidad primaria. BBVA ronda el 14–16%, Santander el 12–14%. El ROE bancario refleja la combinación de margen de intereses, eficiencia operativa y gestión del riesgo crediticio. Por debajo del 10%, un banco no cubre su coste de capital (Ke ~8–10%).</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ ROE Seguros</div><div class="sector-example-body">Mapfre ROE ~8–12%. Axa ~12–15%. En seguros, el ROE combina la rentabilidad técnica (Combined Ratio) con los retornos de la cartera de inversiones. Tasas de interés altas benefician el ROE asegurador porque mejoran el retorno de las inversiones en renta fija.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">Descomposición DuPont — la radiografía del ROE</div>
+      <p class="body-text">El análisis DuPont descompone el ROE en tres factores multiplicativos que revelan exactamente de dónde viene la rentabilidad del accionista. Es una herramienta diagnóstica extraordinaria para comparar empresas del mismo sector con ROEs similares pero por razones completamente distintas.</p>
+      <div class="formula-block">
+        <div class="formula-main">ROE = Net Profit Margin × Asset Turnover × Financial Leverage</div>
+        <div class="formula-components">
+          = (Net Income / Revenue) × (Revenue / Total Assets) × (Total Assets / Equity)<br>
+          = Eficiencia de beneficio × Eficiencia en uso de activos × Apalancamiento financiero
+        </div>
+      </div>
+      <table class="fin-table">
+        <thead><tr><th>Factor DuPont</th><th>¿Qué mide?</th><th>¿Qué lo mejora?</th><th>Farma</th><th>Banca</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Net Profit Margin</strong></td><td>Cuánto beneficio se extrae de cada euro de revenue</td><td>Subir precios, bajar costes, mejorar mix</td><td class="cell-green">15–25% (alto)</td><td class="cell-gold">15–22%</td></tr>
+          <tr><td><strong>Asset Turnover</strong></td><td>Cuánto revenue genera cada euro de activo</td><td>Más ventas con los mismos activos, desinversión</td><td class="cell-red">0.3–0.5x (bajo por intangibles)</td><td class="cell-red">0.03–0.06x (muy bajo, activos = préstamos)</td></tr>
+          <tr><td><strong>Financial Leverage</strong></td><td>Cuánto apalancamiento multiplica el equity</td><td>Más deuda (pero sube el riesgo)</td><td class="cell-gold">2–3x</td><td class="cell-red">8–14x (estructural en banca)</td></tr>
+          <tr class="row-total"><td><strong>ROE resultante</strong></td><td colspan="2">Producto de los tres factores</td><td>25–40%</td><td>12–18%</td></tr>
+        </tbody>
+      </table>
+      <div class="callout blue">
+        <div class="callout-icon">🏦</div>
+        <div class="callout-body">
+          <div class="callout-label">Por qué la banca tiene leverage de 10x y no es señal de alarma</div>
+          <div class="callout-text">En banca, el leverage estructural de 8–14x es el modelo de negocio: toman depósitos (pasivo barato) y prestan dinero (activo rentable). Si su leverage fuera el mismo que una industrial (2–3x), el modelo bancario no sería económicamente viable. La gestión del riesgo en banca no se mide por el leverage total sino por los Ratios de Capital Tier 1 regulados por Basilea III, que exigen que el equity cubra al menos el 10.5% de los activos ponderados por riesgo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 3</div>
+      <div class="section-title">ROIC y WACC — la pregunta definitiva: ¿crea valor?</div>
+      <p class="body-text">El <strong>ROIC</strong> (Return on Invested Capital) es la métrica favorita de McKinsey, BCG y los mejores equipos de análisis estratégico. Mide el retorno sobre el capital realmente invertido en el negocio operativo, independientemente de si ese capital viene de deuda o de equity. Al compararlo con el <strong>WACC</strong> (coste medio ponderado de capital), obtenemos la respuesta a la pregunta más importante de las finanzas corporativas: <em>¿está esta empresa creando o destruyendo valor económico?</em></p>
+      <div class="formula-block">
+        <div class="formula-main">ROIC = NOPAT / Invested Capital</div>
+        <div class="formula-components">
+          NOPAT (Net Operating Profit After Tax) = EBIT × (1 − Tax Rate)<br>
+          Invested Capital = Patrimonio Neto + Deuda Financiera Neta (o alternativamente: Activo Total − Caja − Pasivos Operativos no financieros)<br>
+          WACC = Ke × E/(D+E) + Kd × (1−t) × D/(D+E)
+        </div>
+      </div>
+      <table class="fin-table">
+        <thead><tr><th>Escenario</th><th>ROIC</th><th>WACC estimado</th><th>Spread (ROIC−WACC)</th><th>Interpretación</th></tr></thead>
+        <tbody>
+          <tr><td>AstraZeneca (farma innovadora)</td><td class="cell-green">~20%</td><td>~8%</td><td class="cell-green">+12%</td><td>Destruye valor con sus patentes actuales</td></tr>
+          <tr><td>Empresa industrial media</td><td class="cell-gold">~10%</td><td>~9%</td><td class="cell-gold">+1%</td><td>Apenas cubre el coste del capital</td></tr>
+          <tr><td>Empresa con deuda cara</td><td class="cell-red">~7%</td><td>~11%</td><td class="cell-red">−4%</td><td>Destruye valor pese a tener beneficios</td></tr>
+        </tbody>
+      </table>
+      <div class="callout green">
+        <div class="callout-icon">🎯</div>
+        <div class="callout-body">
+          <div class="callout-label">La regla de oro de la creación de valor</div>
+          <div class="callout-text"><strong>Si ROIC &gt; WACC → cada euro invertido genera más de lo que cuesta: se crea valor.</strong> Si ROIC &lt; WACC → se destruye valor aunque el P&L muestre beneficios positivos. Esta diferencia (ROIC − WACC) × Capital Invertido = Economic Value Added (EVA). Un CEO que entiende esto toma decisiones radicalmente distintas: no invierte en proyectos con ROIC esperado inferior al WACC, aunque tengan IRR positiva en absoluto. Es el estándar más riguroso de asignación de capital.</div>
+        </div>
+      </div>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 ROIC Farma</div><div class="sector-example-body">Las farmacéuticas innovadoras con patentes tienen ROIC de 15–25% con WACC de 7–9%, generando spreads amplios. Pero el ROIC es muy volátil: cuando expira una patente y entra competencia genérica, el revenue del producto puede caer un 80% en 18 meses, colapsando el NOPAT. Por eso el pipeline de I+D es una variable estratégica crítica que un buen analista monitoriza igual que los ratios actuales.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 ROIC Banca</div><div class="sector-example-body">En banca no se usa el ROIC tradicional sino el <strong>RORWA</strong> (Return on Risk-Weighted Assets) o el ROE directamente. El "WACC bancario" equivalente es el Coste del Capital (Ke), que en banca europea ronda el 9–11%. BBVA con ROE del 15% crea valor; un banco con ROE del 7% y Ke del 10% destruye valor sistemáticamente.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ ROIC Seguros</div><div class="sector-example-body">En seguros se usa el <strong>Return on Equity</strong> como proxy del ROIC, comparado con el Coste del Capital (Ke ~8–10%). Una aseguradora también mide el <strong>Return on Embedded Value (RoEV)</strong> para el negocio de vida: mide el retorno sobre el valor presente del negocio vigente en cartera. Si RoEV &gt; Ke, se crea valor en el negocio de vida.</div></div>
+      </div>
+    </div>
+
+    <div class="ceo-box">
+      <div class="ceo-box-title">Conversación con el CEO — Módulo 02</div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"Nuestros inversores dicen que tenemos bajo ROE pero nosotros vemos crecimiento fuerte. ¿Cómo les respondo?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">Antes de responder a los inversores, descompongamos el ROE con DuPont. Si el ROE es bajo por leverage bajo (poca deuda), eso es buena gestión financiera, no un problema. Si es bajo por margen reducido o rotación de activos baja, ahí sí hay una conversación de eficiencia pendiente. Los inversores necesitan saber si el ROE bajo es transitorio (inversión en crecimiento) o estructural (modelo de negocio ineficiente). Son respuestas completamente distintas.</div>
+      </div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"¿Tiene sentido seguir invirtiendo en nuestra línea de negocio industrial cuando la división digital crece más?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">La respuesta está en el ROIC de cada línea comparado con su WACC específico (el riesgo de cada negocio es distinto). Si la línea industrial tiene ROIC del 8% con WACC del 9%, destruye valor aunque sea rentable en absoluto. Si la digital tiene ROIC del 18% con WACC del 11%, crear capital ahí tiene sentido estratégico y financiero. Esta es exactamente la herramienta para tomar esa decisión de forma rigurosa.</div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m02',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m01')">← Módulo 01</button>
+    <button class="mod-nav-btn primary" onclick="showView('m03')">Módulo 03: Liquidez →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 03 ══════════════════ -->
+<div id="view-m03" class="view">
+  <div class="module-view-header" data-num="03">
+    <div class="mod-eyebrow">Liquidez · Módulo 03</div>
+    <h1 class="mod-title">Ratios de Liquidez</h1>
+    <p class="mod-subtitle">Current Ratio, Quick Ratio y Working Capital — la salud a corto plazo</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-blue">⏱ 50 min</span><span class="mod-tag tag-red">Ratio clave</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar sabrás evaluar si una empresa puede cubrir sus obligaciones de corto plazo, detectar situaciones de estrés de liquidez antes de que el CEO las identifique, y entender por qué <strong>Working Capital negativo puede ser señal de fortaleza, no de debilidad</strong>.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">Los tres ratios de liquidez a corto plazo</div>
+      <p class="body-text">Los ratios de liquidez miden la capacidad de la empresa para cubrir sus obligaciones financieras en los próximos 12 meses. Se construyen a partir del Balance y reflejan el colchón de activos líquidos frente a los pasivos exigibles a corto plazo:</p>
+      <div class="ratio-cards">
+        <div class="ratio-card" style="--color:var(--green2)">
+          <div class="ratio-card-name">Current Ratio</div>
+          <div class="ratio-card-formula">Activo Corriente / Pasivo Corriente</div>
+          <div class="ratio-card-bench">Referencia: &gt;1.5x · Mínimo: &gt;1x</div>
+          <div class="ratio-card-desc">La métrica de liquidez más amplia. Incluye inventario, que puede tardar meses en convertirse en caja. Útil como primera aproximación pero hay que complementar con Quick Ratio.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--gold)">
+          <div class="ratio-card-name">Quick Ratio (Acid Test)</div>
+          <div class="ratio-card-formula">(Activo Corriente − Inventario) / Pasivo Corriente</div>
+          <div class="ratio-card-bench">Referencia: &gt;1x · Preferido por bancos</div>
+          <div class="ratio-card-desc">Excluye inventario porque en una crisis puede ser difícil de liquidar rápido. Es el favorito de los bancos para evaluar la capacidad real de repago a corto plazo.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--red)">
+          <div class="ratio-card-name">Cash Ratio</div>
+          <div class="ratio-card-formula">Caja y equivalentes / Pasivo Corriente</div>
+          <div class="ratio-card-bench">Stress test: idealmente &gt;0.3–0.5x</div>
+          <div class="ratio-card-desc">El más conservador: solo cuenta la caja disponible inmediatamente. Es el "worst case scenario" de liquidez. Muy bajo (&lt;0.1x) indica dependencia total de líneas de crédito disponibles.</div>
+        </div>
+      </div>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 Liquidez Farma</div><div class="sector-example-body">Las grandes farmacéuticas mantienen Current Ratios de 1.5–2.5x y posiciones de caja muy elevadas (AstraZeneca tenía ~$6B en caja en 2023). Esto no es ineficiencia sino estrategia: necesitan liquidez para financiar la fase III de ensayos clínicos (€300–500M por fármaco) y potenciales adquisiciones de biotech sin depender de los mercados de capitales.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 Liquidez Banca</div><div class="sector-example-body">En banca los ratios de liquidez están regulados por Basilea III. El <strong>LCR (Liquidity Coverage Ratio)</strong>: Activos líquidos de alta calidad / Salidas netas en 30 días &gt; 100% obligatorio. El <strong>NSFR (Net Stable Funding Ratio)</strong>: Financiación estable disponible / Financiación estable requerida &gt; 100%. Son los equivalentes regulatorios del Quick Ratio.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ Liquidez Seguros</div><div class="sector-example-body">La liquidez aseguradora funciona al revés del resto de sectores: cobran las primas antes de pagar los siniestros — tienen "float" estructural. El riesgo no es quedarse sin caja sino tener que liquidar inversiones en mal momento (crisis de mercado coincidiendo con alta siniestralidad). Solvencia II exige mantener capital suficiente para soportar el "99.5th percentile event" en 12 meses.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">Working Capital — el motor invisible de la caja</div>
+      <p class="body-text">El <strong>Working Capital (WC) = Activo Corriente − Pasivo Corriente</strong>. Representa el capital que la empresa necesita para financiar el ciclo operativo diario. Es la diferencia entre lo que la empresa tiene a cobrar (clientes, stock) y lo que debe pagar pronto (proveedores, deudas corto plazo). Un WC positivo es generalmente necesario, pero demasiado alto indica dinero "atrapado" en el ciclo operativo. Un WC negativo puede ser señal de fortaleza competitiva, no de debilidad.</p>
+      <table class="fin-table">
+        <thead><tr><th>Situación de WC</th><th>Valor</th><th>Qué significa</th><th>Ejemplo real</th></tr></thead>
+        <tbody>
+          <tr><td>WC negativo estructural</td><td class="cell-green">Negativo por diseño</td><td>Cobras antes de pagar — el negocio se autofinancia y genera float de caja</td><td>Amazon, Inditex, Mercadona: cobran al contado, pagan a 90+ días</td></tr>
+          <tr><td>WC positivo moderado</td><td class="cell-green">10–25% del revenue</td><td>Ciclo operativo sano, necesita algo de financiación</td><td>Empresa industrial o consultora típica</td></tr>
+          <tr><td>WC positivo elevado</td><td class="cell-gold">&gt;30% del revenue</td><td>Dinero atrapado: cobros lentos, stock alto, pagos rápidos</td><td>Constructoras con mucha obra en curso</td></tr>
+          <tr><td>WC negativo no deseado</td><td class="cell-red">Negativo por impago</td><td>Pasivo corriente desborda activo corriente por deudas vencidas</td><td>Señal de crisis inminente de liquidez</td></tr>
+        </tbody>
+      </table>
+      <div class="callout dark">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-label">Insight — El float como ventaja competitiva</div>
+          <div class="callout-text">Warren Buffett construyó parte de la fortuna de Berkshire Hathaway sobre el "float" de sus aseguradoras: las primas cobradas antes de pagar siniestros le proporcionan decenas de miles de millones de dólares para invertir sin coste. Amazon hace algo similar: cobra al consumidor de inmediato y paga a sus vendedores 30–60 días después. Este WC negativo estructural es uno de los moats financieros más poderosos que existe — la empresa usa el dinero de otros para financiar su crecimiento gratis.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ceo-box">
+      <div class="ceo-box-title">Conversación con el CEO — Módulo 03</div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"Tenemos un Quick Ratio de 0.8x. El director financiero dice que no es problema porque tenemos líneas de crédito. ¿Debería preocuparme?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">Depende de dos cosas: (1) ¿Las líneas de crédito están disponibles y sin condiciones de drawdown restrictivas? Una línea de crédito comprometida (committed) es más fiable que una no comprometida (uncommitted) que el banco puede retirar. (2) ¿Es estructural o coyuntural? Si el QR siempre ha sido 0.8x y el negocio es estable, puede ser el modelo del sector. Si ha caído desde 1.5x, es una señal de deterioro que merece investigar. El ratio en sí no es la alarma — la tendencia y el contexto sí lo son.</div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m03',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m02')">← Módulo 02</button>
+    <button class="mod-nav-btn primary" onclick="showView('m04')">Módulo 04: Deuda →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 04 ══════════════════ -->
+<div id="view-m04" class="view">
+  <div class="module-view-header" data-num="04">
+    <div class="mod-eyebrow">Deuda · Módulo 04</div>
+    <h1 class="mod-title">Estructura de Deuda y Solvencia</h1>
+    <p class="mod-subtitle">Leverage, covenants bancarios y capacidad de refinanciación</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-blue">⏱ 55 min</span><span class="mod-tag tag-gold">Alta relevancia CEO</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar sabrás evaluar el nivel de apalancamiento financiero, interpretar los ratios de deuda en contexto sectorial, entender qué son los covenants bancarios y por qué son la principal fuente de estrés para los CFOs, y <strong>detectar situaciones de riesgo de refinanciación</strong> antes de que se conviertan en crisis.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">Los ratios de endeudamiento — el lenguaje de los bancos</div>
+      <div class="ratio-cards">
+        <div class="ratio-card" style="--color:var(--red)">
+          <div class="ratio-card-name">Net Debt / EBITDA</div>
+          <div class="ratio-card-formula">(Deuda Financiera Total − Caja) / EBITDA</div>
+          <div class="ratio-card-bench">Saludable: &lt;3x · Alerta: &gt;4x · Crisis: &gt;6x</div>
+          <div class="ratio-card-desc">El favorito de los bancos: "¿en cuántos años podrías repagar toda tu deuda neta con el EBITDA actual?" Simple, intuitivo y universal. Es el denominador más usado en covenants bancarios.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--gold)">
+          <div class="ratio-card-name">Debt / Equity</div>
+          <div class="ratio-card-formula">Deuda Financiera Total / Patrimonio Neto</div>
+          <div class="ratio-card-bench">Industrial: &lt;1x · Utilities: 1–3x · Banca: 8–14x</div>
+          <div class="ratio-card-desc">Mide la proporción entre financiación externa e interna. Muy dependiente del sector: lo que es alto en industrial es normal en utilities o banca.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--green2)">
+          <div class="ratio-card-name">Interest Coverage Ratio</div>
+          <div class="ratio-card-formula">EBIT / Gastos Financieros Netos</div>
+          <div class="ratio-card-bench">Cómodo: &gt;4x · Mínimo: &gt;2x · Alerta: &lt;1.5x</div>
+          <div class="ratio-card-desc">¿Cuántas veces puede cubrir la empresa sus intereses con el EBIT? Por debajo de 2x los bancos se ponen muy nerviosos. Por debajo de 1x la empresa no genera suficiente para pagar su deuda.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--blue)">
+          <div class="ratio-card-name">Debt Service Coverage</div>
+          <div class="ratio-card-formula">CFO / (Intereses + Amortización deuda)</div>
+          <div class="ratio-card-bench">Referencia: &gt;1.25x</div>
+          <div class="ratio-card-desc">Más completo que el Interest Coverage porque incluye la amortización del principal. Si es &lt;1x, la empresa no genera suficiente caja para cubrir el servicio completo de su deuda sin refinanciar.</div>
+        </div>
+      </div>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 Deuda Farma</div><div class="sector-example-body">Las grandes farmacéuticas post-adquisición pueden tener Net Debt/EBITDA de 3–5x temporalmente (ej: AstraZeneca tras comprar Alexion por $39B). El mercado lo tolera porque el FCF elevado permite desapalancar rápido. El objetivo típico es volver a &lt;2x en 24–36 meses. La deuda se gestiona con emisiones de bonos a largo plazo aprovechando el investment grade rating.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 Deuda Banca</div><div class="sector-example-body">La solvencia bancaria no se mide con Net Debt/EBITDA sino con los <strong>Ratios de Capital de Basilea III</strong>: Common Equity Tier 1 (CET1) &gt; 10.5% (mínimo regulatorio), &gt; 12% es confortante. BBVA y Santander operan al 12–13%. El capital bancario es el buffer contra pérdidas crediticias — cuanto mayor, más capacidad de absorber impagos sin quebrar.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ Deuda Seguros</div><div class="sector-example-body">La solvencia aseguradora se rige por <strong>Solvency II</strong>: el Solvency Capital Requirement (SCR) Coverage Ratio = Capital disponible / Capital requerido &gt; 100% (mínimo), &gt; 150–200% es confortante. Mapfre opera al ~200%. Las aseguradoras también emiten <strong>deuda subordinada</strong> que computa como capital regulatorio.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">Covenants bancarios — lo que el CEO teme y el consultor debe conocer</div>
+      <p class="body-text">Los <strong>covenants</strong> son condiciones financieras mínimas o máximas establecidas en los contratos de crédito bancario. Si la empresa los incumple (breach), el banco puede exigir la devolución anticipada del préstamo, elevar el tipo de interés o imponer restricciones operativas. Son la principal fuente de estrés financiero para los CFOs porque crean una "línea de penalidad" que hay que gestionar permanentemente.</p>
+      <table class="fin-table">
+        <thead><tr><th>Tipo de covenant</th><th>Métrica habitual</th><th>Límite típico</th><th>Qué pasa si se incumple</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Leverage covenant</strong></td><td>Net Debt / EBITDA</td><td>&lt; 3.5x o 4x</td><td>Incumplimiento técnico → renegociación, repricing o vencimiento anticipado</td></tr>
+          <tr><td><strong>Coverage covenant</strong></td><td>EBITDA / Intereses</td><td>&gt; 3x</td><td>Sube el spread de la deuda, restricciones de dividendos</td></tr>
+          <tr><td><strong>Liquidity covenant</strong></td><td>Current Ratio o caja mínima</td><td>&gt; 1.1x o caja &gt; €Xm</td><td>Obligación de inyectar capital o vender activos en plazos cortos</td></tr>
+          <tr><td><strong>CapEx covenant</strong></td><td>CapEx máximo anual</td><td>Límite absoluto o % revenue</td><td>Restringe inversiones sin aprobación explícita del banco</td></tr>
+          <tr><td><strong>Dividend restriction</strong></td><td>Distribución máxima</td><td>% del FCF o del beneficio neto</td><td>No se puede distribuir dividendo hasta resolver el breach</td></tr>
+        </tbody>
+      </table>
+      <div class="callout red">
+        <div class="callout-icon">🚨</div>
+        <div class="callout-body">
+          <div class="callout-label">Red flag — Covenant headroom bajo</div>
+          <div class="callout-text">Si el Net Debt/EBITDA está en 3.6x y el covenant es 4x, hay solo 0.4x de headroom. Cualquier deterioro del EBITDA (ventas flojean, coste de materiales sube, provisión extraordinaria) puede activar el incumplimiento. El consultor que llega a la reunión sabiendo el headroom de los covenants tiene una ventaja analítica que pocos tienen. Se puede encontrar en las notas a los estados financieros del Annual Report, sección "Financial Instruments" o "Credit Facilities".</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 3</div>
+      <div class="section-title">Estructura de la deuda — vencimientos y riesgo de refinanciación</div>
+      <p class="body-text">No basta con saber cuánta deuda tiene la empresa — hay que saber <em>cuándo vence</em>. Una empresa con Net Debt/EBITDA de 3x puede estar perfectamente cómoda si la deuda vence en 7 años; pero en serio peligro si vence en 18 meses y los mercados de crédito están cerrados o el rating ha caído.</p>
+      <table class="fin-table">
+        <thead><tr><th>Tipo de deuda</th><th>Características</th><th>Riesgo principal</th><th>Cómo se refleja en balance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Préstamos bancarios</strong></td><td>Tipo fijo o variable, covenants estrictos</td><td>Refinanciación, subida de spreads</td><td>Pasivo corriente (corto) y no corriente (largo)</td></tr>
+          <tr><td><strong>Bonos (High Yield / Investment Grade)</strong></td><td>Mercado de capitales, tipo fijo, vencimiento único</td><td>Bullet payment al vencimiento</td><td>Pasivo no corriente</td></tr>
+          <tr><td><strong>Leasing (IFRS 16)</strong></td><td>Desde 2019 se consolida en balance</td><td>Eleva artificialmente el Net Debt</td><td>Hay que ajustar el Net Debt ajustando IFRS 16</td></tr>
+          <tr><td><strong>Deuda híbrida / subordinada</strong></td><td>Entre equity y deuda senior</td><td>Coste alto, puede computar como equity parcial</td><td>Área gris del balance, analizar con cuidado</td></tr>
+        </tbody>
+      </table>
+      <div class="callout gold">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-label">Insight — El "maturity wall"</div>
+          <div class="callout-text">El <em>maturity wall</em> o "muro de vencimientos" describe la situación en que una empresa tiene grandes volúmenes de deuda con vencimiento concentrado en un período corto. Muchas empresas que se financiaron con deuda barata en 2019–2021 afrontan maturity walls en 2025–2027 en un entorno de tipos más altos. Revisar el calendario de vencimientos de deuda es una de las primeras cosas a hacer en el análisis pre-reunión con el CEO.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ceo-box">
+      <div class="ceo-box-title">Conversación con el CEO — Módulo 04</div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"El banco nos ha dicho que estamos al límite del covenant de leverage. ¿Qué opciones tenemos?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">Tres palancas, en orden de velocidad de impacto: (1) Reducir la deuda — ¿hay activos no estratégicos que vender? ¿Desinversiones posibles a corto plazo? (2) Mejorar el EBITDA denominador — ¿hay medidas de reducción de costes que mejoren el ratio en los próximos 2 trimestres? (3) Renegociar el covenant con el banco antes de que se active — proactivamente, con un plan creíble, se consigue headroom adicional. Esperar al breach es la peor opción porque el banco negocia desde una posición de fuerza.</div>
+      </div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"Con los tipos de interés actuales, ¿deberíamos refinanciar nuestra deuda ahora o esperar?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">Depende de cuándo vence la deuda actual y de tu visión sobre la evolución de tipos. Si tienes deuda a tipo variable y los tipos siguen altos, cada punto adicional de tipo impacta directamente en tu Interest Coverage. Si tienes un buen rating y la deuda vence en 3 años, fijar el coste con una emisión de bono a tipo fijo ahora puede ser prudente. La clave es no refinanciar bajo presión — hazlo cuando los mercados están abiertos y tu posición es fuerte.</div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m04',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m03')">← Módulo 03</button>
+    <button class="mod-nav-btn primary" onclick="showView('m05')">Módulo 05: CCC →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 05 ══════════════════ -->
+<div id="view-m05" class="view">
+  <div class="module-view-header" data-num="05">
+    <div class="mod-eyebrow">Eficiencia · Módulo 05</div>
+    <h1 class="mod-title">DSO, DIO, DPO y el Cash Conversion Cycle</h1>
+    <p class="mod-subtitle">Por qué empresas rentables tienen problemas de caja — y cómo solucionarlo</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-gold">⏱ 55 min</span><span class="mod-tag tag-red">Ratio clave</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar entenderás el ciclo de conversión de efectivo, sabrás calcular e interpretar DSO, DIO y DPO, y podrás explicar a un CEO por qué <strong>una empresa con EBITDA del 25% puede tener FCF negativo</strong> — y qué hacer al respecto.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">Los tres ratios del ciclo operativo</div>
+      <p class="body-text">El Working Capital se gestiona a través de tres palancas operativas. Cada una representa una decisión de negocio con impacto directo en la caja. La clave está en entender que las tres interactúan y que mejorar una puede empeorar otra si no se gestiona el conjunto:</p>
+      <div class="formula-block">
+        <div class="formula-main">DSO = (Cuentas a Cobrar / Revenue) × 365</div>
+        <div class="formula-components">Mide en días cuánto tarda la empresa en cobrar a sus clientes desde que emite la factura.<br>Alternativa: (Clientes / Revenue diario medio). Revenue diario = Revenue anual / 365.</div>
+      </div>
+      <div class="formula-block">
+        <div class="formula-main">DIO = (Inventario / COGS) × 365</div>
+        <div class="formula-components">Mide cuántos días permanece el stock en almacén antes de venderse.<br>Se usa COGS (no revenue) como denominador porque el inventario se valora a coste, no a precio de venta.</div>
+      </div>
+      <div class="formula-block">
+        <div class="formula-main">DPO = (Cuentas a Pagar / COGS) × 365</div>
+        <div class="formula-components">Mide cuántos días tarda la empresa en pagar a sus proveedores.<br>Un DPO alto es una fuente de financiación gratuita — la empresa usa el capital del proveedor durante ese período.</div>
+      </div>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 Ciclo Farma</div><div class="sector-example-body">DSO farma: 60–90 días (pagan los sistemas de salud y aseguradoras, lentos). DIO: 90–150 días (procesos de fabricación complejos, stocks de seguridad elevados por regulación). DPO: 45–75 días. CCC típico: 75–165 días. Es uno de los CCCs más altos por sector — absorbe mucho capital en el ciclo operativo.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 Ciclo Banca</div><div class="sector-example-body">Los conceptos DSO/DIO/DPO no aplican directamente en banca (no hay inventario, los "clientes" son prestatarios). El equivalente es el ciclo de funding: el plazo de los depósitos vs el plazo de los préstamos. El riesgo de "transformación de plazos" (tomar depósitos a corto, prestar a largo) es el riesgo de liquidez estructural del modelo bancario.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ Ciclo Seguros</div><div class="sector-example-body">El ciclo asegurador está invertido: cobran la prima antes de prestar el servicio. DSO: 15–30 días (prima cobrada rápido). No hay DIO. DPO de siniestros: 30–90 días (desde notificación a pago). Esta inversión del ciclo crea el float de caja que Buffett describe como "mejor que equity gratuito".</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">El Cash Conversion Cycle (CCC) — la métrica maestra</div>
+      <div class="formula-block">
+        <div class="formula-main">CCC = DSO + DIO − DPO</div>
+        <div class="formula-components">
+          Cuanto más bajo (o más negativo), mejor.<br>
+          Un CCC de 90 días significa que la empresa financia 90 días de operaciones con su propio capital antes de recuperar la caja.<br>
+          Necesidades de financiación del WC ≈ (CCC / 365) × Revenue anual
+        </div>
+      </div>
+      <p class="body-text">El CCC permite cuantificar el impacto de mejorar el Working Capital. Si una empresa con €500M de revenue reduce su CCC en 15 días, libera €500M × 15/365 = <strong>€20.5M de caja</strong> sin necesidad de mejorar el EBITDA ni reducir inversiones. Esto es especialmente potente en empresas con márgenes ajustados donde el EBITDA es difícil de mejorar rápido.</p>
+      <table class="fin-table">
+        <thead><tr><th>Empresa / modelo</th><th>DSO</th><th>DIO</th><th>DPO</th><th>CCC</th><th>Implicación</th></tr></thead>
+        <tbody>
+          <tr><td>Retailer eficiente (Inditex)</td><td>5d</td><td>50d</td><td>90d</td><td class="cell-green">−35 días</td><td>Se autofinancia, genera caja del ciclo</td></tr>
+          <tr><td>Farma innovadora</td><td>80d</td><td>120d</td><td>60d</td><td class="cell-gold">140 días</td><td>Necesita €Xm de WC por cada €100M de revenue</td></tr>
+          <tr><td>Industrial estándar</td><td>55d</td><td>60d</td><td>45d</td><td class="cell-gold">70 días</td><td>Moderado, gestionable con líneas de circulante</td></tr>
+          <tr><td>Empresa con problemas de cobro</td><td>110d</td><td>90d</td><td>30d</td><td class="cell-red">170 días</td><td>Absorbe capital creciente, riesgo de liquidez</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 3</div>
+      <div class="section-title">Por qué el EBITDA alto no garantiza FCF positivo</div>
+      <p class="body-text">Este es uno de los insights más contraintuitivos y poderosos del análisis financiero. Una empresa puede tener un EBITDA Margin excelente y aun así consumir caja si el Working Capital crece más rápido que las ventas o el CapEx es muy elevado:</p>
+      <table class="fin-table">
+        <thead><tr><th></th><th>Empresa A — crecimiento eficiente</th><th>Empresa B — crecimiento con trampa de WC</th></tr></thead>
+        <tbody>
+          <tr><td>Revenue</td><td>€200M (+20% YoY)</td><td>€200M (+20% YoY)</td></tr>
+          <tr><td>EBITDA (25% margen)</td><td class="cell-green">€50M</td><td class="cell-green">€50M</td></tr>
+          <tr><td>Variación del Working Capital</td><td class="cell-green">−€5M (leve)</td><td class="cell-red">−€22M (CCC se dispara)</td></tr>
+          <tr><td>CapEx</td><td>−€8M</td><td>−€8M</td></tr>
+          <tr><td><strong>Free Cash Flow</strong></td><td class="cell-green"><strong>+€37M</strong></td><td class="cell-red"><strong>+€20M (o negativo)</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="callout dark">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-label">Las tres palancas de mejora del WC</div>
+          <div class="callout-text"><strong>(1) Reducir DSO:</strong> Facturación electrónica más rápida, descuentos por pronto pago, factoring o confirming, cambios en condiciones contractuales. Cada 10 días de mejora en DSO libera ~Revenue/36.5 de caja.<br><strong>(2) Reducir DIO:</strong> Revisión de políticas de stock mínimo, just-in-time, reducción de SKUs, mejor forecast de demanda.<br><strong>(3) Aumentar DPO:</strong> Renegociación de plazos con proveedores, programas de supply chain finance (el banco paga al proveedor inmediatamente y la empresa paga al banco a 90+ días).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ceo-box">
+      <div class="ceo-box-title">Conversación con el CEO — Módulo 05</div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"Tenemos EBITDA del 22% y FCF casi cero. El equipo financiero dice que es por el crecimiento. ¿Es normal?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">El crecimiento consume WC — eso es normal. Pero lo que no es normal es que el consumo de WC se coma enteramente el EBITDA. Necesito ver el CCC de los últimos 3 años: ¿ha empeorado? Si el DSO ha subido de 60 a 90 días mientras crecías, no es solo crecimiento — hay un problema de cobro o de condiciones comerciales. Cuantifiquemos: si tienes €300M de revenue y el CCC ha empeorado 30 días, eso son €25M de caja que deberías tener y no tienes.</div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m05',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m04')">← Módulo 04</button>
+    <button class="mod-nav-btn primary" onclick="showView('m06')">Módulo 06: Asset Turnover →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 06 ══════════════════ -->
+<div id="view-m06" class="view">
+  <div class="module-view-header" data-num="06">
+    <div class="mod-eyebrow">Eficiencia · Módulo 06</div>
+    <h1 class="mod-title">Asset Turnover y Productividad del Capital</h1>
+    <p class="mod-subtitle">¿Cuánto revenue genera cada euro de activo? La clave del modelo de negocio</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-gold">⏱ 40 min</span><span class="mod-tag tag-red">Ratio clave</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar entenderás la diferencia entre modelos asset-light y asset-heavy, su impacto en valoración y ROIC, y sabrás identificar si una empresa está en situación de <strong>underinvestment o sobreinversión en activos</strong>.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">Asset Turnover — la eficiencia del activo</div>
+      <div class="formula-block">
+        <div class="formula-main">Asset Turnover = Revenue / Total Assets (promedio)</div>
+        <div class="formula-components">
+          Mide cuántos euros de revenue genera cada euro de activo total.<br>
+          Una empresa con Asset Turnover de 1.5x genera €150 de revenue por cada €100 de activo.<br>
+          Tiene alta variabilidad sectorial: el ratio de un banco (0.03–0.06x) y el de un retailer (1.5–2.5x) son incomparables.
+        </div>
+      </div>
+      <table class="fin-table">
+        <thead><tr><th>Modelo de negocio</th><th>Asset Turnover</th><th>EBIT Margin típico</th><th>ROIC resultante</th><th>Ejemplos</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Asset-light de alto margen</strong></td><td class="cell-green">&gt;1.5x</td><td class="cell-green">20–40%</td><td class="cell-green">25–50%</td><td>Farma patentada, software, consultoría</td></tr>
+          <tr><td><strong>Asset-light de bajo margen</strong></td><td class="cell-green">1.5–3x</td><td class="cell-gold">2–8%</td><td class="cell-gold">8–15%</td><td>Retail, distribución, e-commerce</td></tr>
+          <tr><td><strong>Asset-medium</strong></td><td class="cell-gold">0.5–1.5x</td><td class="cell-gold">8–15%</td><td class="cell-gold">8–15%</td><td>Servicios industriales, healthcare</td></tr>
+          <tr><td><strong>Asset-heavy</strong></td><td class="cell-red">0.2–0.5x</td><td class="cell-red">8–15%</td><td class="cell-red">4–8%</td><td>Utilities, infraestructuras, mining, banca</td></tr>
+        </tbody>
+      </table>
+      <div class="callout gold">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-label">Por qué las empresas asset-light se valoran a múltiplos mucho más altos</div>
+          <div class="callout-text">No es solo porque tengan mejores márgenes. Es porque para crecer un 20%, una empresa asset-light (consultoría, software) necesita contratar personas y pagar nóminas — CapEx marginal casi cero. Una empresa asset-heavy (acería, aerolínea) necesita construir una nueva planta o comprar nuevos aviones — CapEx de cientos de millones. <strong>El mercado paga un premio enorme por el crecimiento sin intensidad de capital.</strong> Una consultora que crece un 15% con CapEx del 1% del revenue genera enormemente más FCF por euro de EBITDA que una utility que crece al mismo ritmo con CapEx del 20%.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">CapEx Intensity y el riesgo de underinvestment</div>
+      <div class="formula-block">
+        <div class="formula-main">CapEx Intensity = CapEx / Revenue</div>
+        <div class="formula-components">
+          Mantenimiento CapEx: el necesario para mantener la capacidad productiva actual (suele ser aproximadamente igual a la D&amp;A).<br>
+          Growth CapEx: la inversión por encima del mantenimiento para ampliar capacidad.<br>
+          CapEx Intensity &lt; D&amp;A/Revenue puede indicar underinvestment — la empresa "extrae" caja del negocio sin renovar sus activos.
+        </div>
+      </div>
+      <div class="callout red">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-label">Underinvestment — el deterioro silencioso</div>
+          <div class="callout-text">Una empresa puede inflar su FCF a corto plazo reduciendo el CapEx por debajo del nivel de mantenimiento. Los activos se deterioran, la competitividad cae, pero los ratios financieros parecen buenos durante 2–3 años. Es una de las señales más difíciles de detectar pero más devastadoras a largo plazo. Se identifica comparando el CapEx actual con la D&A (si CapEx &lt; D&A sistemáticamente, el activo neto se reduce) y con el benchmark sectorial de intensidad inversora.</div>
+        </div>
+      </div>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 CapEx Farma</div><div class="sector-example-body">CapEx físico en farma (plantas, equipos): 5–10% del revenue. Pero el "CapEx estratégico" real es el R&D (15–25% del revenue), que en IFRS puede ser gasto corriente o capitalizado según las fases del proyecto. Si una farma reduce su R&D/Revenue del 20% al 12%, está sacrificando su pipeline futuro por rentabilidad presente — una de las señales de alerta más importantes en el sector.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 CapEx Banca</div><div class="sector-example-body">El "CapEx" en banca es la inversión en tecnología (digitalización, sistemas core, ciberseguridad): 2–5% del revenue. En un contexto de competencia de fintechs y neobancos, subinvertir en tecnología es el mayor riesgo estratégico. Los bancos más avanzados (ING, BBVA) invierten más del 4% de su revenue en tecnología y son los que mejor compiten con los challengers digitales.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ CapEx Seguros</div><div class="sector-example-body">CapEx operativo en seguros: muy bajo (1–3% revenue). El capital "invertido" es financiero — las reservas técnicas invertidas en activos. La gestión de activos (ALM — Asset Liability Management) es el equivalente al CapEx en seguros: asegurar que la duración y el perfil de riesgo de las inversiones casan con las obligaciones de siniestros futuros.</div></div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m06',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m05')">← Módulo 05</button>
+    <button class="mod-nav-btn primary" onclick="showView('m07')">Módulo 07: Valoración →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 07 ══════════════════ -->
+<div id="view-m07" class="view">
+  <div class="module-view-header" data-num="07">
+    <div class="mod-eyebrow">Valoración · Módulo 07</div>
+    <h1 class="mod-title">Múltiplos de Valoración</h1>
+    <p class="mod-subtitle">EV/EBITDA, P/E, P/B — lo que usa el mercado y por qué cada uno cuenta una historia diferente</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-green">⏱ 60 min</span><span class="mod-tag tag-gold">Alta relevancia CEO</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar entenderás la diferencia entre Enterprise Value y Market Cap, sabrás calcular e interpretar los principales múltiplos de valoración, y podrás construir una tabla de comparables (<em>comps</em>) para <strong>contextualizar la valoración de cualquier empresa frente a su sector</strong>.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">Enterprise Value vs Market Cap — la diferencia fundamental</div>
+      <p class="body-text">Antes de hablar de múltiplos hay que entender qué se está valorando. Esta distinción es crítica y muchos CEOs la confunden habitualmente:</p>
+      <div class="formula-block">
+        <div class="formula-main">Enterprise Value (EV) = Market Cap + Net Debt + Minority Interests − Equity Investments</div>
+        <div class="formula-components">
+          Net Debt = Deuda Financiera Total − Caja y equivalentes<br>
+          EV representa el valor total del negocio operativo, independientemente de cómo se financia.<br>
+          Es el precio que pagaría un comprador por adquirir el 100% de la empresa y quedarse también con su deuda.
+        </div>
+      </div>
+      <table class="fin-table">
+        <thead><tr><th>Concepto</th><th>Fórmula</th><th>Perspectiva</th><th>Cuándo usarlo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Market Cap</strong></td><td>Precio × Nº acciones</td><td>Valor para el accionista</td><td>Comparar tamaño de empresas cotizadas</td></tr>
+          <tr><td><strong>Enterprise Value</strong></td><td>Market Cap + Net Debt</td><td>Valor total del negocio</td><td>M&A, múltiplos operativos, comparables</td></tr>
+        </tbody>
+      </table>
+      <div class="callout red">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-label">El error más frecuente en M&A</div>
+          <div class="callout-text">Un CEO dice: "Me han ofrecido €500M por mi empresa". Si la empresa tiene €200M de deuda neta, el EV es €500M pero el equity value (lo que recibe el accionista) es €300M. Si tiene €100M de caja neta, el equity value es €600M. La deuda neta siempre hay que ajustarla. En transacciones de M&A, el precio siempre se negocia en términos de EV para evitar esta ambigüedad — el vendedor y el comprador deben acordar el tratamiento de la caja y la deuda en el precio final.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">Los múltiplos más usados — y cuándo aplicar cada uno</div>
+      <div class="ratio-cards">
+        <div class="ratio-card" style="--color:var(--green2)">
+          <div class="ratio-card-name">EV / EBITDA</div>
+          <div class="ratio-card-formula">Enterprise Value / EBITDA</div>
+          <div class="ratio-card-bench">Farma: 12–22x · Banca: N/A · Seguros: 10–15x</div>
+          <div class="ratio-card-desc">El estándar en M&A y private equity. Neutral respecto a estructura de capital y amortizaciones. Permite comparar empresas con niveles de deuda muy distintos.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--red)">
+          <div class="ratio-card-name">P/E Ratio</div>
+          <div class="ratio-card-formula">Precio acción / Beneficio por acción</div>
+          <div class="ratio-card-bench">Farma: 20–35x · Banca: 8–12x · Seguros: 10–15x</div>
+          <div class="ratio-card-desc">Muy usado en renta variable. Refleja las expectativas de crecimiento futuro: un P/E alto significa que el mercado paga un premium por crecimiento esperado. Inútil con beneficio negativo.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--blue)">
+          <div class="ratio-card-name">P/B Ratio (Price to Book)</div>
+          <div class="ratio-card-formula">Market Cap / Patrimonio Neto Contable</div>
+          <div class="ratio-card-bench">Banca: 0.5–1.5x · Farma: 3–8x</div>
+          <div class="ratio-card-desc">Especialmente relevante en banca y seguros donde los activos son financieros y el valor contable es más significativo. P/B &lt;1 en banca sugiere que el mercado cree que el banco destruye valor.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--gold)">
+          <div class="ratio-card-name">EV / Revenue</div>
+          <div class="ratio-card-formula">Enterprise Value / Revenue</div>
+          <div class="ratio-card-bench">SaaS: 5–15x · Farma early stage: 3–10x</div>
+          <div class="ratio-card-desc">Útil cuando el EBITDA es negativo (startups, empresas en pérdidas). Penaliza implícitamente la falta de rentabilidad — solo tiene sentido con expectativas de escala futura.</div>
+        </div>
+      </div>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 Valoración Farma</div><div class="sector-example-body">AstraZeneca opera a EV/EBITDA de 14–18x. El premium sobre el mercado general refleja: (1) márgenes estructuralmente altos con patentes, (2) pipeline de productos visibles, (3) pricing power en oncología. Cuando una farma pierde una patente importante, el múltiplo puede comprimir de 16x a 10x en meses — el mercado descuenta el cliff de revenue futuro.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 Valoración Banca</div><div class="sector-example-body">El EV/EBITDA no se usa en banca (la deuda es el negocio, no el apalancamiento). Se usa P/E (BBVA cotiza a ~8–10x, Santander a 7–9x) y P/Book (BBVA 1.1–1.3x). Un P/Book &gt;1x indica que el mercado cree que el banco genera ROE superior al coste de su capital. Los bancos europeos cotizaron con P/Book &lt;1x durante años post-2008 porque el mercado no creía en su capacidad de rentabilizar el capital en un entorno de tipos cero.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ Valoración Seguros</div><div class="sector-example-body">En seguros se usa P/E y <strong>Price to Embedded Value</strong> (P/EV) para el negocio de vida. El Embedded Value es el valor presente del negocio en cartera más el valor ajustado del patrimonio. Un P/EV de 0.8x sugiere que la acción cotiza con descuento sobre el valor intrínseco calculado por la propia aseguradora. Mapfre ha cotizado históricamente a P/E de 10–14x, en línea con aseguradoras europeas comparables.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 3</div>
+      <div class="section-title">Trailing vs Forward múltiplos — y qué afecta el múltiplo</div>
+      <p class="body-text">Un múltiplo puede calcularse sobre cifras históricas (LTM: Last Twelve Months) o sobre estimaciones futuras (NTM: Next Twelve Months, o 1–2 años forward). Los múltiplos forward son siempre inferiores a los trailing en empresas en crecimiento porque el denominador (EBITDA futuro) es mayor. Siempre hay que especificar cuál se está usando:</p>
+      <table class="fin-table">
+        <thead><tr><th>Factor que afecta el múltiplo</th><th>Dirección del impacto</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td>Mayor tasa de crecimiento esperada</td><td class="cell-green">↑ Sube el múltiplo</td><td>Una farma con pipeline prometedor vale más múltiplo que una sin catalizadores</td></tr>
+          <tr><td>Mayor visibilidad de ingresos (contratos recurrentes)</td><td class="cell-green">↑ Sube el múltiplo</td><td>SaaS con ARR tiene más múltiplo que servicios de proyecto</td></tr>
+          <tr><td>Márgenes superiores al sector</td><td class="cell-green">↑ Sube el múltiplo</td><td>Farma con Gross Margin del 85% vale más que una con 60%</td></tr>
+          <tr><td>Mayor leverage financiero</td><td class="cell-red">↓ Baja el múltiplo</td><td>Empresas muy endeudadas tienen múltiplo inferior por el riesgo financiero</td></tr>
+          <tr><td>Subida de tipos de interés</td><td class="cell-red">↓ Comprime múltiplos globalmente</td><td>2022–2023: caída generalizada de múltiplos por subida de tipos Fed/BCE</td></tr>
+          <tr><td>ESG / regulatory risk</td><td class="cell-red">↓ Penaliza sectores con riesgo regulatorio</td><td>Tabaco, fossil fuels cotizan con descuento estructural por riesgo ESG</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ceo-box">
+      <div class="ceo-box-title">Conversación con el CEO — Módulo 07</div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"Un competidor se ha vendido a 14x EBITDA. Si aplicamos ese múltiplo, somos una empresa de €X millones. ¿Es correcto usar esa referencia para hablar con potenciales inversores?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">Es un punto de partida útil, no una verdad absoluta. Antes de usar esa referencia necesito saber: (1) ¿Qué EBITDA usaron — LTM o forward? ¿Ajustado o reportado? (2) ¿Era un proceso competitivo de M&A con varios compradores, lo que infla el múltiplo? (3) ¿Tu empresa tiene el mismo perfil de crecimiento y márgenes? Si tu EBITDA crece al 5% y el de ellos al 20%, el múltiplo no es directamente comparable. Construyamos una tabla de comparables con 5–6 empresas del sector para establecer un rango defensable.</div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m07',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m06')">← Módulo 06</button>
+    <button class="mod-nav-btn primary" onclick="showView('m08')">Módulo 08: FCF →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 08 ══════════════════ -->
+<div id="view-m08" class="view">
+  <div class="module-view-header" data-num="08">
+    <div class="mod-eyebrow">Valoración · Módulo 08</div>
+    <h1 class="mod-title">Free Cash Flow</h1>
+    <p class="mod-subtitle">El indicador más honesto de la salud real de un negocio — y cómo leerlo correctamente</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-green">⏱ 50 min</span><span class="mod-tag tag-gold">Narrativa estratégica</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar entenderás por qué el FCF es la métrica definitiva para evaluar la salud real de una empresa, sabrás distinguir FCF to Firm de FCF to Equity, y podrás responder la pregunta estratégica clave: <strong>¿cuándo puede esta empresa hacer una adquisición, pagar dividendos o desapalancarse?</strong></p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">FCF — definición, cálculo y variantes</div>
+      <p class="body-text">El Free Cash Flow es la caja que queda disponible para los proveedores de capital (tanto deuda como equity) después de que la empresa ha pagado sus gastos operativos e invertido lo necesario para mantener y hacer crecer el negocio. Es el número que verdaderamente importa porque no puede ser maquillado fácilmente mediante ajustes contables.</p>
+      <div class="formula-block">
+        <div class="formula-main">FCF (simplificado) = CFO − CapEx total</div>
+        <div class="formula-components">CFO (Cash Flow from Operations): caja generada por el negocio después de impuestos y cambios en WC.<br>CapEx total: inversión en activos fijos (de mantenimiento + de crecimiento).</div>
+      </div>
+      <div class="formula-block">
+        <div class="formula-main">FCFF (Free Cash Flow to Firm) = EBIT × (1−t) + D&A − ΔWWC − CapEx</div>
+        <div class="formula-components">Perspectiva de toda la empresa (deuda + equity). Se usa en DCF para valorar el negocio entero.<br>t = tasa impositiva efectiva. ΔWC = cambio en Working Capital (positivo si WC sube = consumo de caja).</div>
+      </div>
+      <div class="formula-block">
+        <div class="formula-main">FCFE (Free Cash Flow to Equity) = FCFF − Intereses×(1−t) + Δ Deuda neta</div>
+        <div class="formula-components">Perspectiva del accionista exclusivamente. Representa la caja que podría distribuirse como dividendo sin deteriorar la posición financiera de la empresa.</div>
+      </div>
+      <div class="ratio-cards">
+        <div class="ratio-card" style="--color:var(--green2)">
+          <div class="ratio-card-name">FCF Yield</div>
+          <div class="ratio-card-formula">FCF / Market Cap (o EV)</div>
+          <div class="ratio-card-bench">Atractivo: &gt;5% · Referencia 10Y bono</div>
+          <div class="ratio-card-desc">Cuánto FCF genera la empresa por euro de valor de mercado. Si FCF Yield &gt; rendimiento del bono risk-free, la empresa puede estar barata relativa al activo sin riesgo.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--gold)">
+          <div class="ratio-card-name">FCF Conversion</div>
+          <div class="ratio-card-formula">FCF / EBITDA</div>
+          <div class="ratio-card-bench">Bueno: &gt;60–70% · Excelente: &gt;80%</div>
+          <div class="ratio-card-desc">Qué porcentaje del EBITDA se convierte en caja libre real. Si es bajo, el CapEx o el WC absorben la mayor parte del resultado operativo.</div>
+        </div>
+        <div class="ratio-card" style="--color:var(--red)">
+          <div class="ratio-card-name">FCF Margin</div>
+          <div class="ratio-card-formula">FCF / Revenue</div>
+          <div class="ratio-card-bench">Excelente: &gt;15% · Bueno: 8–15%</div>
+          <div class="ratio-card-desc">Qué porcentaje del revenue acaba siendo caja libre. Las empresas con FCF Margin alto y sostenido son las que mejor acumulan valor a largo plazo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">FCF negativo — ¿señal de alerta o de inversión estratégica?</div>
+      <p class="body-text">El FCF negativo no siempre es malo. La clave está en entender <em>por qué</em> es negativo. Un FCF negativo por CapEx de crecimiento en un negocio con alto ROIC es exactamente lo que debería estar haciendo la empresa. Un FCF negativo por WC incontrolado o mantenimiento de activos desbocado es una señal de gestión deficiente:</p>
+      <table class="fin-table">
+        <thead><tr><th>Causa del FCF negativo</th><th>Señal</th><th>Interpretación estratégica</th><th>Ejemplo sector</th></tr></thead>
+        <tbody>
+          <tr><td>Alto CapEx de crecimiento, ROIC &gt; WACC</td><td class="cell-green">Positiva</td><td>La empresa invierte donde crea valor — buena asignación de capital</td><td>Farma en fase III, biotech en expansión</td></tr>
+          <tr><td>R&D elevado con pipeline sólido</td><td class="cell-green">Positiva</td><td>Inversión en crecimiento futuro con probabilidad alta de retorno</td><td>Farma innovadora</td></tr>
+          <tr><td>WC creciendo más que el revenue</td><td class="cell-red">Negativa</td><td>Ineficiencia operativa o deterioro de la calidad de clientes</td><td>Cualquier sector</td></tr>
+          <tr><td>CapEx de mantenimiento disparado</td><td class="cell-red">Negativa</td><td>Activos deteriorados o underinvestment histórico que ahora hay que remediar</td><td>Industrial, utilities</td></tr>
+          <tr><td>FCF negativo estructural en empresa madura</td><td class="cell-red">Muy negativa</td><td>El modelo de negocio consume capital sistemáticamente sin retorno suficiente</td><td>Aerolíneas, retail tradicional</td></tr>
+        </tbody>
+      </table>
+      <div class="sector-examples-wrap">
+        <div class="sector-example"><div class="sector-example-title pharma">🔬 FCF Farma</div><div class="sector-example-body">AstraZeneca generó ~$8–10B de FCF en 2023 con FCF Conversion del 65–70% sobre EBITDA. El gap entre EBITDA y FCF se explica principalmente por: (1) CapEx de plantas de fabricación (~$2B), (2) WC elevado por DSO alto con hospitales y sistemas de salud, (3) pagos de milestones de acuerdos de licencia. Las farmacéuticas usan el FCF principalmente para dividendos, recompras de acciones y adquisiciones bolt-on.</div></div>
+        <div class="sector-example"><div class="sector-example-title banca">🏦 FCF Banca</div><div class="sector-example-body">El concepto de FCF en banca es diferente al resto: el "FCF" equivalente es el <strong>Capital Generado Orgánicamente</strong> = Beneficio Neto − Crecimiento del capital requerido por el crecimiento de RWA. Si el banco genera 100 de beneficio pero el crecimiento de sus préstamos requiere retener 60 en capital regulatorio, solo 40 son distribuibles. Este es el driver de los dividendos bancarios.</div></div>
+        <div class="sector-example"><div class="sector-example-title seguros">🛡️ FCF Seguros</div><div class="sector-example-body">En seguros se usa el <strong>Operating Cash Flow</strong> de la actividad de seguros (primas cobradas − siniestros pagados − costes operativos) como proxy del FCF. La capacidad de dividendo depende del saldo entre este OCF y las necesidades de capital regulatorio (Solvency II). Mapfre ha mantenido un dividend payout del 50–60% del beneficio neto en años recientes.</div></div>
+      </div>
+    </div>
+
+    <div class="ceo-box">
+      <div class="ceo-box-title">Conversación con el CEO — Módulo 08</div>
+      <div class="ceo-question">
+        <div class="ceo-label ceo-q-label">CEO</div>
+        <div class="ceo-q-text">"El consejo quiere iniciar el pago de dividendos o hacer una adquisición. ¿Cuándo estamos preparados para eso?"</div>
+        <div class="ceo-label ceo-a-label">TÚ</div>
+        <div class="ceo-a-text">Para dividendos sostenibles necesitas que el FCFE sea positivo y estable — que la caja libre después de toda la deuda sea suficiente para distribuir sin deteriorar el balance. Para una adquisición, además necesitas: (1) Net Debt/EBITDA post-deal por debajo del límite de covenants y con margen suficiente para absorber integración, (2) que el ROIC esperado del target supere tu WACC en un horizonte razonable, (3) acceso a financiación a coste razonable. Proyectemos el FCF a 3 años con distintos escenarios y veamos exactamente en qué trimestre se cruza el umbral de capacidad de distribución.</div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m08',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m07')">← Módulo 07</button>
+    <button class="mod-nav-btn primary" onclick="showView('m09')">Módulo 09: Framework CEO →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 09 ══════════════════ -->
+<div id="view-m09" class="view">
+  <div class="module-view-header" data-num="09">
+    <div class="mod-eyebrow">Conversación CEO · Módulo 09</div>
+    <h1 class="mod-title">Framework Pre-Reunión con el CEO</h1>
+    <p class="mod-subtitle">Cómo construir un diagnóstico financiero completo en 30 minutos antes de cualquier primera reunión</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-red">⏱ 65 min</span><span class="mod-tag tag-gold">Alta relevancia CEO</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar tendrás un <strong>sistema reproducible y eficiente</strong> para preparar la dimensión financiera de cualquier primera reunión con un CEO: qué datos buscar, en qué orden leerlos, cómo formular hipótesis estratégicas concretas y qué preguntas hacer para validarlas.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">El framework de las 5 preguntas en 30 minutos</div>
+      <p class="body-text">Este framework está diseñado para ser ejecutado con el Annual Report y/o los estados financieros disponibles públicamente. La secuencia importa: cada pregunta construye sobre la anterior y juntas forman un diagnóstico coherente en lugar de un conjunto de ratios desconectados.</p>
+      <div class="framework-box">
+        <div class="framework-header">Framework Pre-Reunión CEO — 5 preguntas en secuencia</div>
+        <div class="framework-body">
+          <div class="framework-steps">
+            <div class="framework-step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">¿El negocio gana dinero de forma sostenida?</div>
+                <div class="step-desc">Analiza el EBITDA Margin en los últimos 3 años. ¿Está mejorando, estable o comprimiendo? ¿Cómo se compara con el sector? Si comprime, ¿en qué nivel del P&L — Gross Margin, EBITDA o Net Income — se origina? Esta pregunta te dice si el modelo de negocio es fundamentalmente sólido o si hay un problema estructural de rentabilidad.</div>
+              </div>
+            </div>
+            <div class="framework-step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">¿La empresa convierte su beneficio en caja real?</div>
+                <div class="step-desc">Compara el CFO con el Net Income. Si CFO &lt; Net Income sistemáticamente, el Working Capital absorbe caja. Calcula el FCF Conversion (FCF/EBITDA): si es &lt;50%, hay un sumidero de caja significativo. Esta pregunta diferencia las empresas que reportan bien de las que realmente generan caja.</div>
+              </div>
+            </div>
+            <div class="framework-step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">¿Tiene presión de liquidez o deuda?</div>
+                <div class="step-desc">Calcula Net Debt/EBITDA y compáralo con el benchmark del sector. Busca el headroom de covenants en las notas. Revisa el calendario de vencimientos de deuda: ¿tiene algo que refinanciar en los próximos 18 meses? ¿En qué entorno de tipos? ¿Cuál es el Interest Coverage Ratio?</div>
+              </div>
+            </div>
+            <div class="framework-step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">¿Está creando valor para el accionista?</div>
+                <div class="step-desc">Si tienes datos para calcularlo, compara ROIC vs WACC. Si no, usa como proxy: Gross Margin tendencia + Asset Turnover vs sector + Revenue growth vs inversión necesaria. La pregunta de fondo es: ¿cada euro que esta empresa invierte genera más de lo que cuesta ese capital?</div>
+              </div>
+            </div>
+            <div class="framework-step">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <div class="step-title">¿Qué está pagando el mercado por esta empresa y por qué?</div>
+                <div class="step-desc">Calcula el EV/EBITDA implícito si es cotizada, o estima el rango de valoración si es privada usando comps del sector. ¿Cotiza con prima o descuento vs peers? Los catalizadores de re-rating (positivos o negativos) son una de las conversaciones más ricas con un CEO.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">El Financial One-Pager — estructura estándar</div>
+      <p class="body-text">El output del framework es un one-pager que sirve de preparación interna y como guía de conversación. No se muestra al CEO — es tu mapa de navegación para la reunión. Estructura recomendada:</p>
+      <table class="fin-table">
+        <thead><tr><th>Sección</th><th>Contenido</th><th>Fuentes</th><th>Tiempo estimado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Contexto</strong></td><td>Revenue, nº empleados, mercados, modelo de negocio en 3 líneas</td><td>Web corporativa, LinkedIn, Annual Report portada</td><td>5 min</td></tr>
+          <tr><td><strong>Rentabilidad</strong></td><td>Gross Margin, EBITDA Margin, Net Margin (últimos 3 años + sector benchmark)</td><td>P&L del Annual Report</td><td>5 min</td></tr>
+          <tr><td><strong>Caja y Eficiencia</strong></td><td>FCF, FCF Conversion, CCC si disponible</td><td>Cash Flow Statement</td><td>5 min</td></tr>
+          <tr><td><strong>Solidez Financiera</strong></td><td>Net Debt/EBITDA, Interest Coverage, vencimientos de deuda</td><td>Balance + notas financieras</td><td>5 min</td></tr>
+          <tr><td><strong>Valoración</strong></td><td>EV/EBITDA implícito o estimado vs sector</td><td>Fuentes públicas, comps sector</td><td>5 min</td></tr>
+          <tr><td><strong>Hipótesis y preguntas</strong></td><td>3 hipótesis principales a validar, 5 preguntas concretas</td><td>Tu análisis</td><td>5 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 3</div>
+      <div class="section-title">De los números a la narrativa estratégica</div>
+      <p class="body-text">El valor diferencial del consultor no está en calcular los ratios — cualquiera puede hacerlo. Está en <strong>convertir los patrones financieros en hipótesis estratégicas concretas</strong> que el CEO reconozca como relevantes y que abran una conversación de fondo. Estos son los patrones más comunes y su traducción estratégica:</p>
+      <table class="fin-table">
+        <thead><tr><th>Patrón financiero observado</th><th>Hipótesis estratégica</th><th>Pregunta para el CEO</th></tr></thead>
+        <tbody>
+          <tr><td>Gross Margin cayendo 3 años consecutivos con revenue creciente</td><td>Pérdida de poder de pricing o cambio de mix hacia productos de menor valor añadido</td><td>"¿Cómo ha evolucionado vuestra capacidad de subir precios a clientes en los últimos 3 años? ¿Hay presión de genéricos o de nuevos entrantes?"</td></tr>
+          <tr><td>EBITDA positivo y creciente, FCF negativo recurrente</td><td>Modelo de crecimiento capital-intensivo o deterioro del ciclo de cobro</td><td>"¿El consumo de working capital es estructural o transitorio? ¿Ha cambiado el perfil de vuestros clientes en términos de solvencia o plazo de pago?"</td></tr>
+          <tr><td>Net Debt/EBITDA creciendo 3 años seguidos</td><td>Adquisición reciente sin integración completa o inversión en crecimiento sin retorno aún visible</td><td>"¿Cuál es el plan de desapalancamiento y en qué plazo realista esperáis volver al objetivo de leverage?"</td></tr>
+          <tr><td>EV/EBITDA con descuento de 30–40% vs sector</td><td>Mercado descuenta algún riesgo específico: regulatorio, de pipeline, de governance, de deuda</td><td>"¿Por qué crees que el mercado valora la empresa con ese descuento respecto a competidores? ¿Qué catalizador podría cerrarlo?"</td></tr>
+          <tr><td>ROIC comprimiendo hacia el WACC</td><td>Madurez del negocio o competencia erosionando el diferencial competitivo</td><td>"¿En qué líneas de negocio o mercados ves el mayor riesgo de commoditización en los próximos 5 años?"</td></tr>
+        </tbody>
+      </table>
+      <div class="callout dark">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-label">El principio del "already knowing"</div>
+          <div class="callout-text">La diferencia entre una primera reunión buena y una extraordinaria no es cuántos datos dominas — es llegar con hipótesis concretas formuladas en lenguaje del CEO, no en lenguaje de analista financiero. No dices "vuestro DSO es de 85 días". Dices "parece que tenéis €30M de caja 'atrapada' en el ciclo de cobro que podría liberarse — ¿es ese un foco activo de gestión?" Mismo análisis, comunicación radicalmente diferente.</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m09',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m08')">← Módulo 08</button>
+    <button class="mod-nav-btn primary" onclick="showView('m10')">Módulo 10: Red Flags →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ MÓDULO 10 ══════════════════ -->
+<div id="view-m10" class="view">
+  <div class="module-view-header" data-num="10">
+    <div class="mod-eyebrow">Conversación CEO · Módulo 10</div>
+    <h1 class="mod-title">Red Flags y Simulación CEO</h1>
+    <p class="mod-subtitle">Las señales de alerta que el CEO no siempre ve — y tres simulaciones en farma, banca y seguros</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-red">⏱ 90 min</span><span class="mod-tag tag-gold">Práctica</span></div>
+  </div>
+  <div class="mod-objective"><p>Al terminar serás capaz de identificar las principales señales de alerta financiera antes de una reunión, y habrás practicado la primera conversación CEO en los tres sectores de referencia del curso: farmacéutico, bancario y asegurador.</p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Sección 1</div>
+      <div class="section-title">Las 10 red flags del análisis pre-reunión</div>
+      <div class="redflag-grid">
+        <div class="redflag-card">
+          <div class="redflag-signal">Revenue crece, Gross Margin cae</div>
+          <div class="redflag-meaning">La empresa compra crecimiento sacrificando rentabilidad. Presión de precios, entrada de genéricos, cambio de mix, o necesidad de dar descuentos para mantener cuota.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">EBITDA positivo + FCF negativo recurrente (&gt;2 años)</div>
+          <div class="redflag-meaning">El negocio consume caja sistemáticamente. Puede ser inversión (bueno) o WC incontrolado y CapEx de mantenimiento disparado (malo). Hay que discriminar la causa.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">Net Debt/EBITDA &gt; 4x con covenant en 4.5x</div>
+          <div class="redflag-meaning">Headroom insuficiente. Cualquier shock de EBITDA (−15%) activa el covenant. La empresa gestiona con el banco siempre al límite — posición de negociación débil.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">DSO creciendo &gt;15 días en 2 años</div>
+          <div class="redflag-meaning">Clientes pagan más tarde: solvencia deteriorada, disputas de facturación no resueltas, o política comercial que sacrifica cobro por volumen. Puede preceder a un deterioro de crédito.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">CapEx &lt; D&A durante 3+ años</div>
+          <div class="redflag-meaning">Underinvestment: el activo neto se reduce, la empresa "extrae" caja del negocio sin renovar. Los efectos negativos en competitividad aparecen con 2–4 años de retraso.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">Goodwill &gt; 50% del activo total</div>
+          <div class="redflag-meaning">Adquisiciones a múltiplos elevados. Si las sinergias no se materializan, un impairment puede destruir el patrimonio neto contable y hundir métricas de capital.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">Interest Coverage &lt; 2x</div>
+          <div class="redflag-meaning">El EBIT apenas cubre los intereses. Cualquier bache operativo puede crear tensión en el servicio de la deuda. Los bancos están monitorizando activamente.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">Diferencia creciente entre Revenue y CFO</div>
+          <div class="redflag-meaning">Si revenue crece pero el CFO no acompaña (o cae), indica que el crecimiento es de baja calidad — se reporta en el P&L pero no se cobra. Señal de revenue recognition agresiva.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">Cambio de auditor + deterioro de márgenes</div>
+          <div class="redflag-meaning">No es ratio financiero pero correlaciona fuertemente con problemas de reporting o desacuerdos sobre criterios contables. Señal de governance que merece atención.</div>
+        </div>
+        <div class="redflag-card">
+          <div class="redflag-signal">ROIC acercándose al WACC en negocio maduro</div>
+          <div class="redflag-meaning">El moat competitivo se está erosionando. La empresa puede seguir siendo rentable en el corto plazo pero la creación de valor futuro es cuestionable — la estrategia necesita revisión.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 2</div>
+      <div class="section-title">Simulación A — CEO Farma: "El cliff de patente y el pipeline"</div>
+      <p class="body-text"><strong>Perfil financiero:</strong> Empresa farmacéutica de tamaño mediano. Revenue €1.2B, EBITDA Margin 31%, pero cayendo desde 38% hace 3 años. R&D/Revenue: 18% → 14% (cayendo). Net Debt/EBITDA: 2.1x. FCF: positivo pero comprimiendo. EV/EBITDA: 11x (descuento del 25% vs peers). Un producto estrella representa el 45% del revenue y su patente expira en 18 meses.</p>
+      <div class="callout dark">
+        <div class="callout-icon">🔬</div>
+        <div class="callout-body">
+          <div class="callout-label">Diagnóstico y hipótesis pre-reunión</div>
+          <div class="callout-text"><strong>Red flags:</strong> (1) EBITDA Margin cayendo 7pp en 3 años — ¿pricing bajo presión o subida de costes? (2) R&D/Revenue cayendo del 18% al 14% — la empresa está sacrificando pipeline por rentabilidad presente. (3) EV/EBITDA con descuento → el mercado descuenta el cliff de patente de forma agresiva.<br><br><strong>Hipótesis:</strong> La compresión de EBITDA refleja inversión comercial para sostener ventas del producto maduro mientras el mercado ya anticipa la entrada de genéricos. La reducción de R&D puede indicar que no hay producto en fase III que sustituya el revenue en riesgo.<br><br><strong>Preguntas para el CEO:</strong> "¿Cuál es el producto más avanzado en pipeline y en qué fase está? ¿Cuánto revenue puede generar en 3 años? ¿Cuál es el plan para el momento de la genericización — defensa del precio, reformulación, o gestión de transición?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 3</div>
+      <div class="section-title">Simulación B — CEO Banca: "El banco regional bajo presión"</div>
+      <p class="body-text"><strong>Perfil financiero:</strong> Banco regional mediano. Total activos €18B. NIM: 1.9% (subiendo por tipos). Cost-to-Income: 61% (sector mejor: 50%). NPL Ratio (préstamos morosos / cartera total): 4.8% (subiendo desde 3.1%). CET1: 11.8% (por encima del mínimo regulatorio de 10.5% pero sin mucho colchón). ROE: 8.2% vs coste de capital estimado ~9.5% → destruye valor.</p>
+      <div class="callout dark">
+        <div class="callout-icon">🏦</div>
+        <div class="callout-body">
+          <div class="callout-label">Diagnóstico y hipótesis pre-reunión</div>
+          <div class="callout-text"><strong>Red flags:</strong> (1) NPL ratio subiendo — cartera crediticia deteriorándose, probablemente exposición a sectores afectados por tipos altos (promotoras, pymes endeudadas). (2) Cost-to-Income del 61% — ineficiente, necesita digitalización o reducción de red de oficinas. (3) ROE del 8.2% &lt; Ke del 9.5% → el banco destruye valor económico cada año.<br><br><strong>Hipótesis:</strong> El banco no ha hecho el proceso de transformación digital que ya completaron los grandes, lo que se refleja en una estructura de costes cara. El aumento de NPL probablemente está concentrado en un sector o tipología de cliente.<br><br><strong>Preguntas para el CEO:</strong> "¿Cuál es la concentración sectorial de la cartera de crédito y cómo ha evolucionado el NPL en los segmentos de mayor exposición? ¿Cuál es el plan de transformación de costes y cuándo esperáis llegar a un Cost-to-Income por debajo del 55%?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Sección 4</div>
+      <div class="section-title">Simulación C — CEO Seguros: "La aseguradora con el viento de cola de tipos"</div>
+      <p class="body-text"><strong>Perfil financiero:</strong> Aseguradora multi-ramo (vida + no vida). Primas emitidas €3.2B. Combined Ratio no vida: 96.5% (saludable). Margen técnico de vida: comprimiendo. Investment yield (retorno de inversiones): subiendo desde 2.8% a 3.6% por tipos altos. Solvency II Coverage Ratio: 182%. ROE: 11.5% (mejorando). El negocio de vida-ahorro tiene salidas de rescates aceleradas (los clientes mueven ahorros a depósitos bancarios con tipos atractivos).</p>
+      <div class="callout dark">
+        <div class="callout-icon">🛡️</div>
+        <div class="callout-body">
+          <div class="callout-label">Diagnóstico y hipótesis pre-reunión</div>
+          <div class="callout-text"><strong>Red flags:</strong> (1) Rescates acelerados en vida-ahorro — los tipos altos son un arma de doble filo para aseguradoras: mejoran el investment yield pero hacen competir a los productos de ahorro con depósitos bancarios al 3–4%. (2) Margen técnico de vida comprimiendo — puede indicar garantías de tipo mínimo en productos antiguos que ahora cuestan más de mantener.<br><br><strong>Hipótesis:</strong> La aseguradora se beneficia hoy de los tipos altos en inversiones pero tiene un riesgo latente en su cartera de vida si los tipos bajan rápido (re-inversión a tipos menores). El negocio no-vida está bien gestionado con Combined Ratio sano.<br><br><strong>Preguntas para el CEO:</strong> "¿Cómo está siendo la dinámica de salidas en el negocio de vida-ahorro? ¿Qué porcentaje de la cartera tiene garantías de tipo que podría resultar costoso en un escenario de bajada de tipos? ¿Cuál es la duración media de la cartera de inversiones y cómo se compara con la duración de las reservas técnicas?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise-block">
+      <div class="exercise-title">Ejercicio final del curso</div>
+      <div class="exercise-desc">Elige un cliente actual o potencial en farma, banca o seguros. Aplica el framework del Módulo 09. Prepara el Financial One-Pager completo y formula 3 hipótesis estratégicas basadas en el análisis financiero.</div>
+      <ol class="exercise-steps">
+        <li>Descarga el Annual Report y localiza los tres estados financieros principales</li>
+        <li>Calcula los 10 ratios clave del módulo correspondiente a su sector</li>
+        <li>Identifica las 2–3 red flags o puntos de interés del listado de esta sección</li>
+        <li>Formula 3 hipótesis estratégicas vinculando el patrón financiero con el contexto competitivo del sector</li>
+        <li>Prepara 5 preguntas específicas para validar esas hipótesis con el CEO — en su lenguaje, no en lenguaje de analista</li>
+      </ol>
+    </div>
+
+    <button class="complete-btn" onclick="markDone('m10',this)">✓ Marcar como completado</button>
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m09')">← Módulo 09</button>
+    <button class="mod-nav-btn primary" onclick="showView('toolkit')">Ver Toolkit →</button>
+  </div>
+</div>
+
+<!-- ══════════════════ TOOLKIT ══════════════════ -->
+<div id="view-toolkit" class="view">
+  <div class="module-view-header" data-num="★">
+    <div class="mod-eyebrow">Recursos · Referencia permanente</div>
+    <h1 class="mod-title">Toolkit del Consultor Financiero</h1>
+    <p class="mod-subtitle">Cheat Sheet: 25 ratios esenciales con fórmulas, benchmarks por sector y guía de interpretación</p>
+    <div class="mod-meta-bar"><span class="mod-tag tag-gold">Referencia permanente</span><span class="mod-tag tag-green">Farma · Banca · Seguros</span></div>
+  </div>
+  <div class="mod-objective"><p>Referencia rápida para usar antes de cualquier reunión. <strong>Todos los ratios, todas las fórmulas, benchmarks de los tres sectores.</strong></p></div>
+  <div class="mod-body">
+
+    <div class="section-block">
+      <div class="section-label">Cheat Sheet</div>
+      <div class="section-title">Ratios por categoría — fórmulas y benchmarks</div>
+      <div class="cheatsheet-grid">
+        <div class="cs-category">
+          <div class="cs-cat-header red">Rentabilidad</div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Gross Margin</div><div class="cs-ratio-formula">(Rev − COGS) / Rev</div></div><div class="cs-ratio-bench">Farma: 70–85%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">EBITDA Margin</div><div class="cs-ratio-formula">EBITDA / Revenue</div></div><div class="cs-ratio-bench">Farma: 25–40%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">EBIT Margin</div><div class="cs-ratio-formula">EBIT / Revenue</div></div><div class="cs-ratio-bench">Farma: 20–35%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Net Margin</div><div class="cs-ratio-formula">Net Income / Revenue</div></div><div class="cs-ratio-bench">Farma: 15–25%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Combined Ratio</div><div class="cs-ratio-formula">Loss Ratio + Expense Ratio</div></div><div class="cs-ratio-bench">Seguros: &lt;100%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">NIM (Banca)</div><div class="cs-ratio-formula">(Int. cobrados − Int. pagados) / Activos rentables</div></div><div class="cs-ratio-bench">Banca: 1.5–3%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Cost-to-Income (Banca)</div><div class="cs-ratio-formula">Costes op. / Ingresos totales</div></div><div class="cs-ratio-bench">Banca: &lt;55% excelente</div></div>
+        </div>
+        <div class="cs-category">
+          <div class="cs-cat-header red">Retorno sobre Capital</div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">ROE</div><div class="cs-ratio-formula">Net Income / Equity</div></div><div class="cs-ratio-bench">Farma: &gt;20% · Banca: &gt;10%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">ROA</div><div class="cs-ratio-formula">Net Income / Total Assets</div></div><div class="cs-ratio-bench">Farma: &gt;8% · Banca: 0.5–1%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">ROIC</div><div class="cs-ratio-formula">NOPAT / Invested Capital</div></div><div class="cs-ratio-bench">Objetivo: &gt; WACC</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">RORWA (Banca)</div><div class="cs-ratio-formula">Beneficio / Risk-Weighted Assets</div></div><div class="cs-ratio-bench">Banca: &gt;1.5%</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">EVA</div><div class="cs-ratio-formula">(ROIC − WACC) × Capital Invertido</div></div><div class="cs-ratio-bench">&gt;0 = crea valor</div></div>
+        </div>
+        <div class="cs-category">
+          <div class="cs-cat-header blue">Liquidez</div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Current Ratio</div><div class="cs-ratio-formula">Activo Cte / Pasivo Cte</div></div><div class="cs-ratio-bench">&gt;1.5x</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Quick Ratio</div><div class="cs-ratio-formula">(Activo Cte − Stock) / Pasivo Cte</div></div><div class="cs-ratio-bench">&gt;1x</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Cash Ratio</div><div class="cs-ratio-formula">Caja / Pasivo Cte</div></div><div class="cs-ratio-bench">&gt;0.3x</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">LCR (Banca)</div><div class="cs-ratio-formula">Activos líquidos / Salidas netas 30d</div></div><div class="cs-ratio-bench">Banca: &gt;100% (regulatorio)</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">SCR Coverage (Seguros)</div><div class="cs-ratio-formula">Capital disponible / Capital requerido</div></div><div class="cs-ratio-bench">Seguros: &gt;150% confort.</div></div>
+        </div>
+        <div class="cs-category">
+          <div class="cs-cat-header gold">Eficiencia Operativa</div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">DSO</div><div class="cs-ratio-formula">(Clientes / Revenue) × 365</div></div><div class="cs-ratio-bench">Cuanto más bajo</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">DIO</div><div class="cs-ratio-formula">(Inventario / COGS) × 365</div></div><div class="cs-ratio-bench">Cuanto más bajo</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">DPO</div><div class="cs-ratio-formula">(Proveedores / COGS) × 365</div></div><div class="cs-ratio-bench">Cuanto más alto</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">CCC</div><div class="cs-ratio-formula">DSO + DIO − DPO</div></div><div class="cs-ratio-bench">Cuanto más bajo / negativo</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Asset Turnover</div><div class="cs-ratio-formula">Revenue / Total Assets</div></div><div class="cs-ratio-bench">Farma: 0.3–0.5x</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">CapEx Intensity</div><div class="cs-ratio-formula">CapEx / Revenue</div></div><div class="cs-ratio-bench">Farma físico: 5–10%</div></div>
+        </div>
+        <div class="cs-category">
+          <div class="cs-cat-header ink">Deuda y Solvencia</div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Net Debt / EBITDA</div><div class="cs-ratio-formula">(Deuda − Caja) / EBITDA</div></div><div class="cs-ratio-bench">&lt;3x saludable</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Debt / Equity</div><div class="cs-ratio-formula">Deuda / Patrimonio Neto</div></div><div class="cs-ratio-bench">&lt;2x industrial</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">Interest Coverage</div><div class="cs-ratio-formula">EBIT / Gastos financieros</div></div><div class="cs-ratio-bench">&gt;3x cómodo</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">CET1 Ratio (Banca)</div><div class="cs-ratio-formula">Core Equity / RWA</div></div><div class="cs-ratio-bench">Banca: &gt;12% confort.</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">NPL Ratio (Banca)</div><div class="cs-ratio-formula">Préstamos morosos / Total cartera</div></div><div class="cs-ratio-bench">Banca: &lt;3% saludable</div></div>
+        </div>
+        <div class="cs-category">
+          <div class="cs-cat-header green">Valoración y FCF</div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">EV / EBITDA</div><div class="cs-ratio-formula">EV / EBITDA</div></div><div class="cs-ratio-bench">Farma: 12–22x · Seguros: 10–15x</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">P/E</div><div class="cs-ratio-formula">Precio / BPA</div></div><div class="cs-ratio-bench">Farma: 20–35x · Banca: 8–12x</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">P/Book</div><div class="cs-ratio-formula">Market Cap / Patrimonio contable</div></div><div class="cs-ratio-bench">Banca: 0.5–1.5x</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">FCF</div><div class="cs-ratio-formula">CFO − CapEx</div></div><div class="cs-ratio-bench">Positivo y creciente</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">FCF Conversion</div><div class="cs-ratio-formula">FCF / EBITDA</div></div><div class="cs-ratio-bench">&gt;65% bueno</div></div>
+          <div class="cs-ratio-row"><div><div class="cs-ratio-name">FCF Yield</div><div class="cs-ratio-formula">FCF / Market Cap</div></div><div class="cs-ratio-bench">&gt;5% atractivo</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Benchmarks sectoriales</div>
+      <div class="section-title">Tabla de referencia — Farma, Banca y Seguros</div>
+      <table class="fin-table">
+        <thead><tr><th>Métrica</th><th>Farma innovadora</th><th>Banca europea</th><th>Seguros multi-ramo</th></tr></thead>
+        <tbody>
+          <tr><td>Gross / Technical Margin</td><td class="cell-green">70–85%</td><td class="cell-gold">NIM 1.5–3%</td><td class="cell-gold">Combined Ratio &lt;100%</td></tr>
+          <tr><td>EBITDA / Pre-Provision Margin</td><td class="cell-green">25–40%</td><td class="cell-gold">40–55% (equiv.)</td><td class="cell-gold">10–18%</td></tr>
+          <tr><td>Net Margin / ROE</td><td class="cell-green">15–25%</td><td class="cell-gold">ROE 10–16%</td><td class="cell-gold">ROE 8–14%</td></tr>
+          <tr><td>Leverage (Net Debt/EBITDA)</td><td class="cell-green">0–2.5x (post-acq.)</td><td class="cell-muted">No aplica (CET1)</td><td class="cell-muted">No aplica (Solvency II)</td></tr>
+          <tr><td>Capital Solvency</td><td class="cell-muted">No regulado</td><td class="cell-gold">CET1 &gt;12%</td><td class="cell-gold">SCR Coverage &gt;150%</td></tr>
+          <tr><td>EV/EBITDA o P/E</td><td class="cell-green">EV/EBITDA 12–22x</td><td class="cell-gold">P/E 8–12x · P/B 0.8–1.5x</td><td class="cell-gold">P/E 10–15x</td></tr>
+          <tr><td>DSO típico</td><td class="cell-gold">60–90 días</td><td class="cell-muted">No aplica</td><td class="cell-green">15–30 días (primas)</td></tr>
+          <tr><td>CapEx / R&D intensity</td><td class="cell-gold">CapEx físico 5–10% + R&D 15–22%</td><td class="cell-gold">Tech investment 2–5%</td><td class="cell-green">CapEx 1–3%</td></tr>
+          <tr><td>FCF Conversion</td><td class="cell-green">60–75%</td><td class="cell-muted">Capital orgánico generado</td><td class="cell-green">65–80%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Glosario rápido</div>
+      <div class="section-title">CEO habla → Consultor entiende → Ratio exacto</div>
+      <table class="fin-table">
+        <thead><tr><th>Lo que dice el CEO</th><th>El término correcto</th><th>Dónde encontrarlo</th><th>Sector relevante</th></tr></thead>
+        <tbody>
+          <tr><td>"Lo que ganamos antes de bancos e impuestos"</td><td>EBITDA</td><td>P&L línea 5–6</td><td>Todos</td></tr>
+          <tr><td>"Lo que generamos de verdad en caja"</td><td>Free Cash Flow (FCF)</td><td>Cash Flow Statement</td><td>Todos</td></tr>
+          <tr><td>"Nuestro valor de mercado"</td><td>Enterprise Value (no Market Cap)</td><td>Calculado</td><td>Todos</td></tr>
+          <tr><td>"Lo que debemos al banco neto de caja"</td><td>Net Debt</td><td>Balance + CF</td><td>Todos</td></tr>
+          <tr><td>"Cuánto estamos ganando por lo que tenemos invertido"</td><td>ROIC</td><td>Calculado P&L + Balance</td><td>Todos (menos banca)</td></tr>
+          <tr><td>"Lo que gana el banco por sus préstamos"</td><td>Net Interest Margin (NIM)</td><td>P&L bancario</td><td>Banca</td></tr>
+          <tr><td>"Nuestro ratio de sinestralidad"</td><td>Loss Ratio + Combined Ratio</td><td>P&L asegurador</td><td>Seguros</td></tr>
+          <tr><td>"Nuestro capital de solvencia"</td><td>CET1 Ratio (banca) / SCR Coverage (seguros)</td><td>Nota regulatoria del Annual Report</td><td>Banca · Seguros</td></tr>
+          <tr><td>"Cuánto gastamos en desarrollar productos"</td><td>R&D / Revenue ratio</td><td>P&L o notas</td><td>Farma · Tech</td></tr>
+          <tr><td>"El valor de nuestra cartera de clientes de vida"</td><td>Embedded Value (EV life)</td><td>Suplemento actuarial</td><td>Seguros vida</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="mod-nav-footer">
+    <button class="mod-nav-btn" onclick="showView('m10')">← Módulo 10</button>
+    <button class="mod-nav-btn primary" onclick="showView('home')">↑ Volver al inicio</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+const MODULES=['m00','m01','m02','m03','m04','m05','m06','m07','m08','m09','m10'];
+const completed=new Set();
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const view=document.getElementById('view-'+id);
+  const nav=document.getElementById('nav-'+id);
+  if(view){view.classList.add('active');}
+  if(nav){nav.classList.add('active');}
+  window.scrollTo(0,0);
+}
+function markDone(id,btn){
+  if(completed.has(id))return;
+  completed.add(id);
+  btn.textContent='✓ Completado';
+  btn.classList.add('done');
+  const dot=document.getElementById('dot-'+id);
+  if(dot){dot.classList.add('done');dot.textContent='✓';}
+  const card=document.getElementById('card-'+id);
+  if(card)card.classList.add('completed');
+  updateProgress();
+}
+function updateProgress(){
+  const total=MODULES.length;
+  const done=completed.size;
+  document.getElementById('progressFill').style.width=(done/total*100)+'%';
+  document.getElementById('progressCount').textContent=done;
+}
+updateProgress();
+</script>
+</body>
+</html>
